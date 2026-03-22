@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Core AI PM Workflow</title>
+  <meta name="description" content="10 AI-powered skills built by a PM, for PMs. Clone this repo and your AI assistant becomes a PM productivity machine.">
+  <meta property="og:title" content="The Core AI PM Workflow">
+  <meta property="og:description" content="10 AI-powered skills built by a PM, for PMs. Clone this repo and your AI assistant becomes a PM productivity machine.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/davethegut/core-ai-pm-workflow/main/assets/banner.png">
+  <meta property="og:url" content="https://davethegut.github.io/core-ai-pm-workflow/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #141414;
+      color: #e8e8e8;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    code, pre, .mono {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    }
+
+    /* ========== LAYOUT ========== */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 96px 0;
+    }
+
+    a { color: #D97757; text-decoration: none; transition: color 0.2s; }
+    a:hover { color: #E8956A; }
+
+    h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+
+    .section-label {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #D97757;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 40px);
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      color: #8892a4;
+      font-size: 18px;
+      max-width: 640px;
+      line-height: 1.7;
+    }
+
+    .section-header {
+      margin-bottom: 56px;
+    }
+
+    /* ========== NAV ========== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(20, 20, 20, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 16px;
+      color: #e8e8e8;
+    }
+
+    .nav-logo span { color: #D97757; }
+
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: #8892a4;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #e8e8e8; }
+
+    .nav-mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: #e8e8e8;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      padding: 140px 0 96px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    }
+
+    .hero-banner {
+      max-width: 720px;
+      width: 100%;
+      margin: 0 auto 40px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .hero-banner img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 800;
+      max-width: 800px;
+      margin: 0 auto 24px;
+      line-height: 1.15;
+    }
+
+    .hero h1 .accent { color: #D97757; }
+
+    .hero-tagline {
+      font-size: clamp(16px, 2.2vw, 20px);
+      color: #8892a4;
+      max-width: 640px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #D97757;
+      color: #141414;
+    }
+
+    .btn-primary:hover {
+      background: #E8956A;
+      color: #141414;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(217, 119, 87, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #e8e8e8;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.04);
+      color: #e8e8e8;
+      transform: translateY(-1px);
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      color: #8892a4;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ========== SKILL GRID ========== */
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .skill-card {
+      background: #242424;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 24px;
+      transition: all 0.25s;
+      position: relative;
+    }
+
+    .skill-card:hover {
+      border-color: rgba(217, 119, 87, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+
+    .skill-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .skill-name {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .skill-desc {
+      font-size: 14px;
+      color: #8892a4;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .skill-time {
+      font-size: 13px;
+      font-weight: 500;
+      color: #D97757;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .skill-time::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #D97757;
+    }
+
+    /* ========== JOURNEY TIMELINE ========== */
+    .journey-section {
+      background: #1a1a1a;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    .timeline-step {
+      text-align: center;
+      padding: 24px 16px;
+      position: relative;
+    }
+
+    .timeline-step::after {
+      content: '';
+      position: absolute;
+      top: 44px;
+      right: -1px;
+      width: calc(100%);
+      height: 2px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .timeline-step:last-child::after,
+    .timeline-step:nth-child(4)::after {
+      display: none;
+    }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #242424;
+      border: 2px solid #D97757;
+      color: #D97757;
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .step-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .step-desc {
+      font-size: 13px;
+      color: #8892a4;
+      line-height: 1.5;
+    }
+
+    /* ========== HIGHLIGHTS ========== */
+    .highlight-block {
+      background: #242424;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 40px;
+      margin-bottom: 24px;
+    }
+
+    .highlight-block h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .highlight-block h3 .accent { color: #D97757; }
+
+    .highlight-lead {
+      color: #8892a4;
+      font-size: 15px;
+      margin-bottom: 24px;
+    }
+
+    .format-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 10px;
+    }
+
+    .format-list li {
+      font-size: 14px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .format-list li strong {
+      color: #D97757;
+      font-weight: 600;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+    }
+
+    .review-card {
+      padding: 16px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .review-card h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #E8956A;
+    }
+
+    .review-card p {
+      font-size: 13px;
+      color: #8892a4;
+      line-height: 1.5;
+    }
+
+    .standup-output {
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 2;
+    }
+
+    .standup-output .red { color: #ef4444; }
+    .standup-output .green { color: #22c55e; }
+    .standup-output .party { color: #E8956A; }
+
+    /* ========== HONEST ASSESSMENT ========== */
+    .assessment-section {
+      background: #1a1a1a;
+    }
+
+    .assessment-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .assessment-col {
+      background: #242424;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 32px;
+    }
+
+    .assessment-col h3 {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .assessment-col.yes h3 { color: #22c55e; }
+    .assessment-col.no h3 { color: #ef4444; }
+
+    .assessment-col ul {
+      list-style: none;
+    }
+
+    .assessment-col li {
+      font-size: 14px;
+      color: #8892a4;
+      padding: 8px 0;
+      padding-left: 24px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .assessment-col.yes li::before {
+      content: '\2713';
+      position: absolute;
+      left: 0;
+      color: #22c55e;
+      font-weight: 700;
+    }
+
+    .assessment-col.no li::before {
+      content: '\2717';
+      position: absolute;
+      left: 0;
+      color: #ef4444;
+      font-weight: 700;
+    }
+
+    /* ========== QUICK START ========== */
+    .quickstart-block {
+      background: #242424;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .quickstart-header {
+      padding: 12px 20px;
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .quickstart-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .quickstart-dot.red { background: #ef4444; }
+    .quickstart-dot.yellow { background: #eab308; }
+    .quickstart-dot.green { background: #22c55e; }
+
+    .quickstart-block pre {
+      padding: 24px;
+      font-size: 14px;
+      line-height: 1.8;
+      overflow-x: auto;
+    }
+
+    .quickstart-block .comment { color: #8892a4; }
+    .quickstart-block .command { color: #e8e8e8; }
+
+    /* ========== ECOSYSTEM ========== */
+    .ecosystem-section {
+      background: #1a1a1a;
+    }
+
+    .ecosystem-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .flow-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .flow-node {
+      background: #242424;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .flow-node.accent {
+      border-color: rgba(217, 119, 87, 0.4);
+      color: #D97757;
+    }
+
+    .flow-arrow {
+      color: #8892a4;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      padding: 48px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+    }
+
+    .footer-tagline {
+      font-size: 15px;
+      color: #8892a4;
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .footer-links a {
+      font-size: 14px;
+      color: #8892a4;
+    }
+
+    .footer-meta {
+      font-size: 13px;
+      color: #767676;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      section { padding: 64px 0; }
+
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: rgba(20, 20, 20, 0.95);
+        backdrop-filter: blur(12px);
+        padding: 16px 24px;
+        gap: 16px;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+      .nav-mobile-toggle { display: block; }
+
+      .timeline {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .timeline-step::after { display: none; }
+
+      .assessment-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .highlight-block { padding: 24px; }
+
+      .hero { padding: 120px 0 64px; }
+    }
+
+    @media (max-width: 480px) {
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .skill-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-ctas {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    /* ========== PRINT ========== */
+    @media print {
+      body { background: #fff; color: #111; }
+      nav { display: none; }
+      .hero { padding-top: 24px; }
+      .skill-card, .highlight-block, .assessment-col, .quickstart-block, .flow-node {
+        background: #f5f5f5;
+        border-color: #ddd;
+        color: #111;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .section-subtitle, .skill-desc, .step-desc, .highlight-lead, .assessment-col li, .review-card p {
+        color: #444;
+      }
+      .btn-primary { background: #D97757; }
+      a { color: #D97757; }
+      section { padding: 32px 0; }
+    }
+
+    /* ========== ANIMATIONS ========== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAV ========== -->
+  <nav aria-label="Main navigation">
+    <div class="container">
+      <div class="nav-logo">Core AI <span>PM Workflow</span></div>
+      <button class="nav-mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#journey">Journey</a></li>
+        <li><a href="#highlights">Highlights</a></li>
+        <li><a href="#quickstart">Quick Start</a></li>
+        <li><a href="https://github.com/davethegut/core-ai-pm-workflow" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-banner">
+        <img src="assets/banner.png" alt="The Core AI PM Workflow banner" width="720" height="400">
+      </div>
+      <h1>Stop writing docs from scratch.<br><span class="accent">Stop spending 2 hours on a deck that should take 20 minutes.</span></h1>
+      <p class="hero-tagline">10 AI-powered skills built by a PM, for PMs. Clone this repo and your AI assistant becomes a PM productivity machine.</p>
+      <div class="hero-ctas">
+        <a href="https://github.com/davethegut/core-ai-pm-workflow/blob/main/journey/01-setup.md" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Start the Journey &#8594;</a>
+        <a href="https://github.com/davethegut/core-ai-pm-workflow" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">View on GitHub</a>
+      </div>
+      <p class="hero-subtitle">10 AI-powered skills built by a PM, for PMs. Clone this repo and your AI assistant becomes a PM productivity machine.</p>
+    </div>
+  </section>
+
+  <!-- ========== SKILLS ========== -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header fade-in">
+        <p class="section-label">What You Get</p>
+        <h2 class="section-title">10 Skills. One Workflow.</h2>
+        <p class="section-subtitle">Each skill is a self-contained capability your AI assistant can execute on demand. No plugins, no SaaS subscriptions&mdash;just prompts that work.</p>
+      </div>
+      <div class="skill-grid">
+        <div class="skill-card fade-in">
+          <span class="skill-icon" aria-hidden="true">&#128197;</span>
+          <h3 class="skill-name">Calendar</h3>
+          <div class="skill-desc">Pull today's meetings, prep for what's next</div>
+          <div class="skill-time">Saves ~5 min/day</div>
+        </div>
+        <div class="skill-card fade-in">
+          <span class="skill-icon" aria-hidden="true">&#128196;</span>
+          <h3 class="skill-name">Google Docs</h3>
+          <div class="skill-desc">Read, write, and sync docs from your terminal</div>
+          <div class="skill-time">Saves ~10 min/doc</div>
+        </div>
+        <div class="skill-card fade-in">
+          <span class="skill-icon" aria-hidden="true">&#128269;</span>
+          <h3 class="skill-name">Deep Dive</h3>
+          <div class="skill-desc">Research any GitHub repo &rarr; polished HTML reference</div>
+          <div class="skill-time">Saves 2&ndash;4 hours</div>
+        </div>
+        <div class="skill-card fade-in">
+          <span class="skill-icon" aria-hidden="true">&#9878;&#65039;</span>
+          <h3 class="skill-name">Competitor Research</h3>
+          <div class="skill-desc">Structured competitive analysis from web + GitHub</div>
+          <div class="skill-time">Saves 3&ndash;6 hours</div>
+        </div>
+        <div class="skill-card fade-in">
+          <span class="skill-icon" aria-hidden="true">&#9997;&#65039;</span>
+          <h3 class="skill-name">Doc Writer</h3>
+          <div class="skill-desc">Write any PM doc&mdash;7 formats, auto-detected</div>
+          <div class="skill-time">Saves 1&ndash;3 hours</div>
+        </div>
+        <div class="skill-card fade-in">
+          <span class="skill-icon" aria-hidden="true">&#128300;</span>
+          <h3 class="skill-name">Doc Reviewer</h3>
+          <div class="skill-desc">CTO or GM-level feedback before the meeting</div>
+          <div class="skill-time">Saves 30&ndash;60 min</div>
+        </div>
+        <div class="skill-card fade-in">
+          <span class="skill-icon" aria-hidden="true">&#127760;</span>
+          <h3 class="skill-name">HTML Reference Page</h3>
+          <div class="skill-desc">Polished, self-contained stats and reference pages</div>
+          <div class="skill-time">Saves 1&ndash;2 hours</div>
+        </div>
+        <div class="skill-card fade-in">
+          <span class="skill-icon" aria-hidden="true">&#127916;</span>
+          <h3 class="skill-name">Presentation</h3>
+          <div class="skill-desc">Build slide decks in minutes, not hours</div>
+          <div class="skill-time">Saves 1&ndash;3 hours</div>
+        </div>
+        <div class="skill-card fade-in">
+          <span class="skill-icon" aria-hidden="true">&#9728;&#65039;</span>
+          <h3 class="skill-name">Morning Standup</h3>
+          <div class="skill-desc">Daily metric check-in with configurable alerts</div>
+          <div class="skill-time">Saves ~15 min/day</div>
+        </div>
+        <div class="skill-card fade-in">
+          <span class="skill-icon" aria-hidden="true">&#128203;</span>
+          <h3 class="skill-name">My Initiatives</h3>
+          <div class="skill-desc">Track GitHub issues and sync to your task list</div>
+          <div class="skill-time">Saves ~10 min/day</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== JOURNEY ========== -->
+  <section class="journey-section" id="journey">
+    <div class="container">
+      <div class="section-header fade-in">
+        <p class="section-label">How It Works</p>
+        <h2 class="section-title">The Journey</h2>
+        <p class="section-subtitle">8 guided steps from setup to shipping. Each builds on the last. Go at your own pace.</p>
+      </div>
+      <div class="timeline fade-in">
+        <div class="timeline-step">
+          <div class="step-number">1</div>
+          <div class="step-title">Setup</div>
+          <div class="step-desc">Install tools, configure credentials, verify everything works</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-number">2</div>
+          <div class="step-title">Read</div>
+          <div class="step-desc">Pull context from Google Docs, Confluence, GitHub</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-number">3</div>
+          <div class="step-title">Research</div>
+          <div class="step-desc">Deep dive into repos, run competitive analysis</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-number">4</div>
+          <div class="step-title">Write</div>
+          <div class="step-desc">Generate PM docs in the right format automatically</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-number">5</div>
+          <div class="step-title">Review</div>
+          <div class="step-desc">Get CTO and GM-level feedback on your drafts</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-number">6</div>
+          <div class="step-title">Present</div>
+          <div class="step-desc">Turn docs into decks and reference pages</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-number">7</div>
+          <div class="step-title">Ship</div>
+          <div class="step-desc">Publish to Google Docs, GitHub, or stakeholder channels</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-number">8</div>
+          <div class="step-title">Customize</div>
+          <div class="step-desc">Adapt skills to your stack, metrics, and team</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HIGHLIGHTS ========== -->
+  <section id="highlights">
+    <div class="container">
+      <div class="section-header fade-in">
+        <p class="section-label">Skill Highlights</p>
+        <h2 class="section-title">Deep Dives on Key Skills</h2>
+        <p class="section-subtitle">These three skills show the depth of what's possible.</p>
+      </div>
+
+      <!-- Doc Writer -->
+      <div class="highlight-block fade-in">
+        <h3>Doc Writer &mdash; <span class="accent">7 Formats, Auto-Detected</span></h3>
+        <p class="highlight-lead">The AI infers the right document format from your request. Just describe what you need.</p>
+        <ul class="format-list">
+          <li><strong>Concept One-Pager</strong> &mdash; new ideas, vision</li>
+          <li><strong>Problem/Solution One-Pager</strong> &mdash; feature enhancements</li>
+          <li><strong>Decision One-Pager</strong> &mdash; choosing between options</li>
+          <li><strong>PRFAQ</strong> &mdash; big bets, launches</li>
+          <li><strong>PRD / Structured Epic</strong> &mdash; full specs</li>
+          <li><strong>Vision Epic</strong> &mdash; direction-setting</li>
+          <li><strong>GitHub Issue</strong> &mdash; publish directly</li>
+        </ul>
+      </div>
+
+      <!-- Doc Reviewer -->
+      <div class="highlight-block fade-in">
+        <h3>Doc Reviewer &mdash; <span class="accent">CTO and GM Personas</span></h3>
+        <p class="highlight-lead">Not generic AI feedback. Based on Kent Beck's 3X framework with persona-specific critique.</p>
+        <div class="review-grid">
+          <div class="review-card">
+            <h4>CTO Review</h4>
+            <p>Feature fit, simplicity, green field fallacy, phasing risk. Asks the hard engineering questions before your CTO does.</p>
+          </div>
+          <div class="review-card">
+            <h4>GM Review (Concept)</h4>
+            <p>Phase clarity, problem gravity, adoption mechanics. Ensures your concept passes the "so what?" test.</p>
+          </div>
+          <div class="review-card">
+            <h4>GM Review (Decision)</h4>
+            <p>Decision clarity, ownership, reversibility. Stress-tests your recommendation before it hits the exec room.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Morning Standup -->
+      <div class="highlight-block fade-in">
+        <h3>Morning Standup &mdash; <span class="accent">Your Metrics, Your Way</span></h3>
+        <p class="highlight-lead">Configure the metrics that matter to you. Works with any SQL-compatible data source.</p>
+        <div class="standup-output">
+          <div><span class="red" aria-label="Red alert">&#128308;</span> Conversion rate dropped to 18% <span style="color:#767676">(threshold: 25%)</span></div>
+          <div><span class="party" aria-label="Celebration">&#127881;</span> Feature adoption hit 6,127 accounts <span style="color:#767676">(target: 6,000)</span></div>
+          <div><span class="green" aria-label="Green, healthy">&#128994;</span> Health score 99.4%, DAU normal range</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HONEST ASSESSMENT ========== -->
+  <section class="assessment-section" id="assessment">
+    <div class="container">
+      <div class="section-header fade-in">
+        <p class="section-label">Honest Assessment</p>
+        <h2 class="section-title">Is This for You?</h2>
+      </div>
+      <div class="assessment-grid fade-in">
+        <div class="assessment-col yes">
+          <h3>This is for you if...</h3>
+          <ul>
+            <li>You're a PM who spends too much time on docs, decks, and data pulls</li>
+            <li>You're comfortable running commands in a terminal (or willing to learn)</li>
+            <li>You want to onboard your team to AI-assisted workflows</li>
+            <li>You use GitHub for tracking work</li>
+          </ul>
+        </div>
+        <div class="assessment-col no">
+          <h3>This is NOT for you if...</h3>
+          <ul>
+            <li>You want a no-code, click-through tool</li>
+            <li>You don't have Claude Code or Cursor</li>
+            <li>You need enterprise-grade security review before using any tool</li>
+            <li>You're looking for a course to learn AI basics</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== QUICK START ========== -->
+  <section id="quickstart">
+    <div class="container">
+      <div class="section-header fade-in" style="text-align:center;">
+        <p class="section-label">Quick Start</p>
+        <h2 class="section-title">Up and Running in 60 Seconds</h2>
+      </div>
+      <div class="quickstart-block fade-in">
+        <div class="quickstart-header">
+          <span class="quickstart-dot red"></span>
+          <span class="quickstart-dot yellow"></span>
+          <span class="quickstart-dot green"></span>
+        </div>
+        <pre><code><span class="command">git clone https://github.com/davethegut/core-ai-pm-workflow.git</span>
+<span class="command">cd core-ai-pm-workflow</span>
+<span class="command">claude</span>
+<span class="comment"># Then say: "Start the journey"</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ECOSYSTEM ========== -->
+  <section class="ecosystem-section" id="ecosystem">
+    <div class="container">
+      <div class="section-header fade-in">
+        <p class="section-label">How Skills Connect</p>
+        <h2 class="section-title">The Ecosystem</h2>
+        <p class="section-subtitle">Skills aren't isolated. They feed into each other to create compounding value.</p>
+      </div>
+      <div class="ecosystem-flow fade-in">
+        <div class="flow-row">
+          <div class="flow-node">Calendar</div>
+          <span class="flow-arrow">feeds context into &rarr;</span>
+          <div class="flow-node accent">Doc Writer</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-node">Deep Dive</div>
+          <span class="flow-arrow">+</span>
+          <div class="flow-node">Competitor Research</div>
+          <span class="flow-arrow">feed into &rarr;</span>
+          <div class="flow-node accent">Doc Writer</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-node accent">Doc Writer</div>
+          <span class="flow-arrow">feeds into &rarr;</span>
+          <div class="flow-node">Doc Reviewer</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-node">Doc Reviewer</div>
+          <span class="flow-arrow">feeds into &rarr;</span>
+          <div class="flow-node">Presentation</div>
+          <span class="flow-arrow">/</span>
+          <div class="flow-node">HTML Reference</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-node accent">Everything</div>
+          <span class="flow-arrow">ships via &rarr;</span>
+          <div class="flow-node">Google Docs</div>
+          <span class="flow-arrow">/</span>
+          <div class="flow-node">GitHub Issues</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <div class="container">
+      <p class="footer-tagline">"Built by a PM who got tired of doing the same things manually every week."</p>
+      <div class="footer-links">
+        <a href="https://github.com/davethegut/core-ai-pm-workflow" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+        <a href="https://github.com/davethegut/core-ai-pm-workflow/blob/main/journey/01-setup.md" target="_blank" rel="noopener noreferrer">Start the Journey</a>
+      </div>
+      <p class="footer-meta">Works with Claude Code &amp; Cursor &middot; MIT License</p>
+    </div>
+  </footer>
+
+  <!-- ========== JS ========== -->
+  <script>
+    // Intersection Observer for fade-in animations
+    (function() {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.fade-in').forEach(function(el) {
+        observer.observe(el);
+      });
+    })();
+
+    // Mobile nav toggle
+    (function() {
+      var toggle = document.querySelector('.nav-mobile-toggle');
+      var links = document.querySelector('.nav-links');
+      if (toggle && links) {
+        toggle.addEventListener('click', function() {
+          var isOpen = links.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', isOpen);
+        });
+        // Close menu when a link is clicked
+        links.querySelectorAll('a').forEach(function(link) {
+          link.addEventListener('click', function() {
+            links.classList.remove('open');
+            toggle.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>

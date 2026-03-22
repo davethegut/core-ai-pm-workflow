@@ -1,0 +1,71 @@
+# Morning Standup — Metrics Configuration Example
+#
+# Copy this file to metrics.yaml and customize for your product.
+# Each alert defines a query, a condition, and how to evaluate the result.
+#
+# Condition types:
+#   milestone   — compare a single value against a threshold (e.g., "> 5000")
+#   threshold   — flag when a value crosses a boundary (e.g., "< 99.5")
+#   alert_if    — fire when query returns any rows (row count > 0)
+#   compare_to  — compare current value to a prior period (e.g., previous_week)
+
+query_runner: "your-query-command"  # e.g., bq query --use_legacy_sql=false, psql -c, etc.
+
+alerts:
+
+  - name: "Feature Adoption"
+    description: "Track daily active users of the key feature"
+    priority: high
+    cadence: daily
+    query: |
+      SELECT COUNT(DISTINCT user_id) AS users
+      FROM usage_events
+      WHERE event_date = CURRENT_DATE - 1
+        AND feature = 'your_feature'
+    condition: milestone
+    milestone: "> 5000"
+    target: 5000
+    context: "Milestone goal for end of Q2. Crossed 3,000 on March 1."
+
+  - name: "Conversion Rate"
+    description: "Percentage of trial users who activate the paid tier"
+    priority: high
+    cadence: daily
+    query: |
+      SELECT
+        ROUND(100.0 * COUNTIF(activated) / COUNT(*), 2) AS conversion_pct
+      FROM trial_users
+      WHERE signup_date BETWEEN CURRENT_DATE - 8 AND CURRENT_DATE - 1
+    condition: threshold
+    threshold: "< 12.0"
+    target: 15.0
+    context: "Healthy range is 12-18%. Investigate if below 12%."
+
+  - name: "Error Spike"
+    description: "Alert if any critical errors occurred in the last 24 hours"
+    priority: critical
+    cadence: daily
+    query: |
+      SELECT error_type, COUNT(*) AS occurrences
+      FROM error_logs
+      WHERE severity = 'critical'
+        AND timestamp >= CURRENT_TIMESTAMP - INTERVAL '24 hours'
+      GROUP BY error_type
+      HAVING COUNT(*) > 10
+    condition: alert_if
+    alert_if: "rows > 0"
+    context: "Any rows returned means a critical error type spiked above 10 occurrences."
+
+  - name: "Weekly Growth"
+    description: "Week-over-week growth in active projects"
+    priority: medium
+    cadence: weekly
+    query: |
+      SELECT
+        COUNT(DISTINCT project_id) AS active_projects
+      FROM project_activity
+      WHERE activity_date BETWEEN CURRENT_DATE - 7 AND CURRENT_DATE - 1
+    condition: compare_to
+    compare_to: previous_week
+    expected_direction: "up"
+    context: "Targeting 5% WoW growth. Flag if flat or declining."

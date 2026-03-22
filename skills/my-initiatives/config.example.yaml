@@ -1,0 +1,42 @@
+# My Initiatives — Configuration Example
+#
+# Copy this file to config.yaml and customize for your team and repos.
+# This config tells the initiative tracker where to find your issues,
+# how to categorize them, and where to write the summary.
+
+github_username: "your-username"
+
+repos:
+
+  - name: "org/main-repo"
+    labels:
+      team: "Team:YourTeam"        # label identifying your team's issues
+      epic: "Epic"                  # label marking epic-level issues
+      pm_action: "pm-action"        # label for issues needing PM attention
+    categories:
+      "Feature A": ["feature-a", "Feature A"]       # display name: [label matches]
+      "Feature B": ["feature-b"]
+      "Infrastructure": ["infra", "platform"]
+      "Tech Debt": ["tech-debt", "cleanup"]
+
+  - name: "org/secondary-repo"
+    labels:
+      team: "Team:YourTeam"
+    categories:
+      "Integrations": ["integration"]
+      "Documentation": ["docs"]
+
+  - name: "org/planning-repo"
+    labels:
+      team: "Team:YourTeam"
+      epic: "Epic"
+    # No categories — all issues tracked without grouping
+
+# Path to your active task file (relative to workspace root).
+# The skill will cross-reference GitHub issues with tasks listed here.
+task_file: "tasks/ACTIVE.md"
+
+# Optional: filter settings
+filters:
+  include_closed_days: 14          # show issues closed within the last N days
+  exclude_labels: ["wontfix", "duplicate"]  # ignore issues with these labels

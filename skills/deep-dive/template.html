@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TITLE}} - Deep Dive</title>
+<style>
+  /* ========== Reset & Base ========== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    background: #0d1117;
+    color: #e6edf3;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ========== Header ========== */
+  .header {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 40%, #1a2332 70%, #0d1117 100%);
+    border-bottom: 1px solid #30363d;
+    padding: 3.5rem 2rem 3rem;
+    text-align: center;
+  }
+
+  .header .badge {
+    display: inline-block;
+    background: rgba(88, 166, 255, 0.12);
+    color: #58a6ff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3em 1em;
+    border-radius: 20px;
+    border: 1px solid rgba(88, 166, 255, 0.25);
+    margin-bottom: 1.25rem;
+  }
+
+  .header h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .header .subtitle {
+    font-size: 1.1rem;
+    color: #8b949e;
+    font-weight: 400;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* ========== Container ========== */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 4rem;
+  }
+
+  /* ========== Headings ========== */
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-top: 2.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #21262d;
+  }
+
+  h2:first-child {
+    margin-top: 0;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #e6edf3;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #c9d1d9;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ========== Paragraphs & Text ========== */
+  p {
+    margin-bottom: 1rem;
+    color: #c9d1d9;
+  }
+
+  strong {
+    color: #e6edf3;
+    font-weight: 600;
+  }
+
+  a {
+    color: #58a6ff;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* ========== Lists ========== */
+  ul, ol {
+    margin-bottom: 1rem;
+    padding-left: 1.75rem;
+  }
+
+  li {
+    margin-bottom: 0.4rem;
+    color: #c9d1d9;
+  }
+
+  li::marker {
+    color: #484f58;
+  }
+
+  /* ========== Tables ========== */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0 1.75rem;
+    font-size: 0.92rem;
+  }
+
+  thead th {
+    background: #161b22;
+    color: #e6edf3;
+    font-weight: 600;
+    text-align: left;
+    padding: 0.7rem 1rem;
+    border: 1px solid #30363d;
+    white-space: nowrap;
+  }
+
+  tbody td {
+    padding: 0.6rem 1rem;
+    border: 1px solid #21262d;
+    color: #c9d1d9;
+    vertical-align: top;
+  }
+
+  tbody tr:nth-child(even) {
+    background: rgba(22, 27, 34, 0.5);
+  }
+
+  tbody tr:hover {
+    background: rgba(88, 166, 255, 0.04);
+  }
+
+  /* ========== Code ========== */
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 0.88em;
+    background: rgba(110, 118, 129, 0.15);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    color: #e6edf3;
+  }
+
+  pre {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 1.25rem;
+    overflow-x: auto;
+    margin: 1.25rem 0 1.75rem;
+    line-height: 1.55;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.85rem;
+    color: #c9d1d9;
+  }
+
+  /* ========== Summary Box ========== */
+  .summary-box {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 1.5rem 1.75rem;
+    margin: 1.5rem 0;
+  }
+
+  .summary-box h3,
+  .summary-box h4 {
+    margin-top: 0;
+    color: #58a6ff;
+  }
+
+  .summary-box p:last-child,
+  .summary-box ul:last-child {
+    margin-bottom: 0;
+  }
+
+  .summary-box.highlight {
+    border-left: 3px solid #58a6ff;
+  }
+
+  .summary-box.warning {
+    border-left: 3px solid #d29922;
+  }
+
+  .summary-box.warning h3,
+  .summary-box.warning h4 {
+    color: #d29922;
+  }
+
+  .summary-box.success {
+    border-left: 3px solid #3fb950;
+  }
+
+  .summary-box.success h3,
+  .summary-box.success h4 {
+    color: #3fb950;
+  }
+
+  /* ========== Horizontal Rule ========== */
+  hr {
+    border: none;
+    border-top: 1px solid #21262d;
+    margin: 2.5rem 0;
+  }
+
+  /* ========== Footer ========== */
+  .footer {
+    border-top: 1px solid #21262d;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    text-align: center;
+    color: #484f58;
+    font-size: 0.82rem;
+  }
+
+  .footer span {
+    display: inline-block;
+    margin: 0 0.5rem;
+  }
+
+  /* ========== Print ========== */
+  @media print {
+    body {
+      background: #ffffff;
+      color: #1a1a1a;
+    }
+
+    .header {
+      background: none;
+      border-bottom: 2px solid #ddd;
+      padding: 1.5rem 0;
+    }
+
+    .header h1 { color: #111; }
+    .header .subtitle { color: #555; }
+    .header .badge {
+      color: #333;
+      background: #eee;
+      border-color: #ccc;
+    }
+
+    .container { max-width: 100%; padding: 1rem 0; }
+
+    h2 { color: #111; border-bottom-color: #ddd; }
+    h3, h4 { color: #222; }
+    p, li { color: #333; }
+    strong { color: #111; }
+    a { color: #0969da; }
+
+    code {
+      background: #f0f0f0;
+      color: #222;
+    }
+
+    pre {
+      background: #f6f6f6;
+      border-color: #ddd;
+    }
+
+    pre code { color: #333; }
+
+    .summary-box {
+      background: #f8f9fa;
+      border-color: #ddd;
+    }
+
+    table { font-size: 0.85rem; }
+    thead th { background: #f0f0f0; color: #111; border-color: #ccc; }
+    tbody td { border-color: #ddd; color: #333; }
+
+    .footer { color: #888; border-top-color: #ddd; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="badge">{{BADGE}}</div>
+  <h1>{{TITLE}}</h1>
+  <p class="subtitle">{{SUBTITLE}}</p>
+</div>
+
+<div class="container">
+  {{CONTENT}}
+
+  <div class="footer">
+    <span>{{TOPIC}}</span> &middot;
+    <span>Generated {{GENERATED_DATE}}</span> &middot;
+    <span>{{REPO}}</span>
+  </div>
+</div>
+
+</body>
+</html>

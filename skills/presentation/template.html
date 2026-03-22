@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presentation</title>
+<!-- Optional: uncomment to use Google Fonts -->
+<!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"> -->
+<style>
+  /* ========== CSS Variables ========== */
+  :root {
+    --primary: #0B64DD;
+    --dark: #101C3F;
+    --purple: #731DCF;
+    --teal: #00BFB3;
+    --pink: #F04E98;
+    --yellow: #FEC514;
+
+    --bg-primary: #0a0e1a;
+    --bg-surface: #111827;
+    --bg-card: #1a2236;
+
+    --text-primary: #f0f2f5;
+    --text-secondary: #94a3b8;
+
+    --border: rgba(148, 163, 184, 0.12);
+    --radius: 12px;
+    --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ========== Reset & Base ========== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Helvetica, Arial, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ========== Progress Bar ========== */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--purple), var(--pink));
+    z-index: 1000;
+    transition: width 0.35s ease;
+    width: 0%;
+  }
+
+  /* ========== Deck & Slides ========== */
+  .deck {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 6rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition), visibility var(--transition);
+    overflow-y: auto;
+  }
+
+  .slide.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .slide-content {
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  /* ========== Typography ========== */
+  h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+    color: var(--text-primary);
+  }
+
+  h1 .gradient-text {
+    background: linear-gradient(135deg, var(--primary), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+
+  p {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  .lead {
+    font-size: 1.4rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 700px;
+  }
+
+  strong { color: var(--text-primary); }
+
+  a { color: var(--primary); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ========== Lists ========== */
+  ul, ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  li {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+  }
+
+  li strong { color: var(--text-primary); }
+
+  /* ========== Tags ========== */
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 0.3em 0.9em;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: rgba(11, 100, 221, 0.15);
+    color: var(--primary);
+    border: 1px solid rgba(11, 100, 221, 0.25);
+  }
+
+  .tag.purple { background: rgba(115, 29, 207, 0.15); color: var(--purple); border-color: rgba(115, 29, 207, 0.25); }
+  .tag.teal   { background: rgba(0, 191, 179, 0.15); color: var(--teal);   border-color: rgba(0, 191, 179, 0.25); }
+  .tag.pink   { background: rgba(240, 78, 152, 0.15); color: var(--pink);   border-color: rgba(240, 78, 152, 0.25); }
+  .tag.yellow { background: rgba(254, 197, 20, 0.15); color: var(--yellow); border-color: rgba(254, 197, 20, 0.25); }
+
+  /* ========== Card Grid ========== */
+  .card-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .card-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .card-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+  }
+
+  .stat-value {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+  }
+
+  .stat-value.purple { color: var(--purple); }
+  .stat-value.teal   { color: var(--teal); }
+  .stat-value.pink   { color: var(--pink); }
+  .stat-value.yellow  { color: var(--yellow); }
+
+  .stat-label {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  /* ========== Comparison Grid ========== */
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .comparison-grid .before,
+  .comparison-grid .after {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+  }
+
+  .comparison-grid .before { border-top: 3px solid var(--pink); }
+  .comparison-grid .after  { border-top: 3px solid var(--teal); }
+
+  .comparison-grid .label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+
+  .comparison-grid .before .label { color: var(--pink); }
+  .comparison-grid .after .label  { color: var(--teal); }
+
+  /* ========== Quote ========== */
+  .quote {
+    font-size: 1.75rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--text-primary);
+    font-style: italic;
+    border-left: 4px solid var(--primary);
+    padding-left: 1.75rem;
+    margin-bottom: 1.5rem;
+    max-width: 800px;
+  }
+
+  .attribution {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-style: normal;
+    padding-left: 1.75rem;
+  }
+
+  .attribution strong { color: var(--text-primary); }
+
+  /* ========== Tables ========== */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+    margin: 1rem 0;
+  }
+
+  thead th {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-weight: 600;
+    text-align: left;
+    padding: 0.75rem 1.25rem;
+    border-bottom: 2px solid var(--primary);
+  }
+
+  tbody td {
+    padding: 0.7rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+
+  tbody tr:hover { background: rgba(11, 100, 221, 0.04); }
+
+  /* ========== Code ========== */
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.88em;
+    background: rgba(148, 163, 184, 0.1);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    color: var(--text-primary);
+  }
+
+  pre {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+
+  pre code { background: none; padding: 0; font-size: 0.85rem; color: var(--text-secondary); }
+
+  /* ========== Callout ========== */
+  .callout {
+    background: linear-gradient(135deg, rgba(11, 100, 221, 0.08), rgba(115, 29, 207, 0.08));
+    border: 1px solid rgba(11, 100, 221, 0.2);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    text-align: center;
+  }
+
+  .callout h2, .callout h3 { margin-bottom: 1rem; }
+  .callout p { max-width: 650px; margin-left: auto; margin-right: auto; }
+
+  /* ========== Timeline ========== */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--primary), var(--purple));
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -2.35rem;
+    top: 0.35rem;
+    width: 10px;
+    height: 10px;
+    background: var(--primary);
+    border-radius: 50%;
+    border: 2px solid var(--bg-primary);
+  }
+
+  .timeline-item .date {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .timeline-item h3 { margin-bottom: 0.4rem; font-size: 1.15rem; }
+  .timeline-item p  { font-size: 1rem; margin-bottom: 0; }
+
+  /* ========== Diagram Boxes ========== */
+  .diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+  }
+
+  .diagram-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.75rem;
+    text-align: center;
+    min-width: 140px;
+  }
+
+  .diagram-box.highlight { border-color: var(--primary); }
+
+  .diagram-arrow {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+  }
+
+  /* ========== CTA ========== */
+  .cta-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    padding: 0.8em 2em;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .cta-btn:hover { opacity: 0.85; text-decoration: none; }
+  .cta-btn.primary   { background: var(--primary); color: #fff; }
+  .cta-btn.secondary { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+
+  /* ========== Navigation ========== */
+  .nav-controls {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 900;
+  }
+
+  .nav-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .nav-btn:hover {
+    background: var(--bg-card);
+    border-color: var(--primary);
+  }
+
+  .dot-nav {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(148, 163, 184, 0.25);
+    cursor: pointer;
+    transition: background 0.25s, transform 0.25s;
+  }
+
+  .dot.active {
+    background: var(--primary);
+    transform: scale(1.3);
+  }
+
+  .dot:hover { background: rgba(148, 163, 184, 0.5); }
+  .dot.active:hover { background: var(--primary); }
+
+  .slide-counter {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    min-width: 3.5em;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ========== Responsive ========== */
+  @media (max-width: 900px) {
+    .slide { padding: 2.5rem 2rem; }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.6rem; }
+    .lead { font-size: 1.15rem; }
+    .stat-value { font-size: 2rem; }
+    .card-grid-3 { grid-template-columns: 1fr; }
+    .card-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .card-grid-2 { grid-template-columns: 1fr; }
+    .comparison-grid { grid-template-columns: 1fr; }
+    .quote { font-size: 1.3rem; }
+    .nav-controls { bottom: 1rem; }
+  }
+
+  /* ========== Print ========== */
+  @media print {
+    html, body {
+      overflow: visible;
+      height: auto;
+      background: #fff;
+      color: #111;
+    }
+
+    .progress-bar, .nav-controls { display: none; }
+
+    .deck { position: static; }
+
+    .slide {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      page-break-after: always;
+      page-break-inside: avoid;
+      height: auto;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    h1, h2, h3, strong { color: #111; }
+    p, li, .stat-label, .attribution { color: #333; }
+    .tag { background: #eee; color: #333; border-color: #ccc; }
+
+    .card, .comparison-grid .before, .comparison-grid .after,
+    .diagram-box, pre, .callout {
+      background: #f8f8f8;
+      border-color: #ddd;
+    }
+
+    thead th { background: #eee; color: #111; border-bottom-color: #999; }
+    tbody td { color: #333; border-bottom-color: #ddd; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="deck" id="deck">
+  <!-- Slides go here. Each slide is a <div class="slide" data-slide="N"> -->
+  <!-- The first slide should have class "slide active" -->
+
+  <!-- EXAMPLE (remove when filling in):
+  <div class="slide active" data-slide="1">
+    <div class="slide-content">
+      <h1>Title</h1>
+      <p class="lead">Subtitle</p>
+    </div>
+  </div>
+  -->
+</div>
+
+<div class="nav-controls" id="navControls">
+  <button class="nav-btn" id="prevBtn" aria-label="Previous slide">&#8592;</button>
+  <div class="dot-nav" id="dotNav"></div>
+  <span class="slide-counter" id="slideCounter"></span>
+  <button class="nav-btn" id="nextBtn" aria-label="Next slide">&#8594;</button>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var deck = document.getElementById("deck");
+  var slides = deck.querySelectorAll(".slide");
+  var total = slides.length;
+  var current = 0;
+
+  var progressBar = document.getElementById("progressBar");
+  var dotNav = document.getElementById("dotNav");
+  var slideCounter = document.getElementById("slideCounter");
+  var prevBtn = document.getElementById("prevBtn");
+  var nextBtn = document.getElementById("nextBtn");
+
+  // Build dot navigation
+  for (var i = 0; i < total; i++) {
+    var dot = document.createElement("span");
+    dot.className = "dot" + (i === 0 ? " active" : "");
+    dot.setAttribute("data-index", i);
+    dot.addEventListener("click", function () {
+      goTo(parseInt(this.getAttribute("data-index"), 10));
+    });
+    dotNav.appendChild(dot);
+  }
+
+  function update() {
+    for (var i = 0; i < total; i++) {
+      slides[i].classList.toggle("active", i === current);
+      dotNav.children[i].classList.toggle("active", i === current);
+    }
+    progressBar.style.width = total > 1 ? ((current / (total - 1)) * 100) + "%" : "100%";
+    slideCounter.textContent = (current + 1) + " / " + total;
+  }
+
+  function goTo(index) {
+    if (index < 0 || index >= total) return;
+    current = index;
+    update();
+  }
+
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  // Arrow key navigation
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight" || e.key === "ArrowDown" || e.key === " ") {
+      e.preventDefault();
+      next();
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      prev();
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      goTo(0);
+    } else if (e.key === "End") {
+      e.preventDefault();
+      goTo(total - 1);
+    } else if (e.key === "f" || e.key === "F") {
+      toggleFullscreen();
+    }
+  });
+
+  // Button navigation
+  prevBtn.addEventListener("click", prev);
+  nextBtn.addEventListener("click", next);
+
+  // Touch / swipe support
+  var touchStartX = 0;
+  var touchStartY = 0;
+
+  deck.addEventListener("touchstart", function (e) {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+
+  deck.addEventListener("touchend", function (e) {
+    var dx = e.changedTouches[0].screenX - touchStartX;
+    var dy = e.changedTouches[0].screenY - touchStartY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      if (dx < 0) next();
+      else prev();
+    }
+  }, { passive: true });
+
+  // Fullscreen toggle
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(function () {});
+    } else {
+      document.exitFullscreen().catch(function () {});
+    }
+  }
+
+  // Initialize
+  update();
+})();
+</script>
+
+</body>
+</html>
