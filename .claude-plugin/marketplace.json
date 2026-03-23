@@ -1,12 +1,12 @@
 {
   "name": "core-ai-pm-workflow",
-  "description": "10 AI-powered skills for Product Managers — write docs, build decks, research competitors, review strategy, and track your work",
   "owner": {
-    "name": "David Elgut",
-    "url": "https://github.com/davethegut"
+    "name": "David Elgut"
   },
-  "url": "https://github.com/davethegut/core-ai-pm-workflow",
-  "version": "1.0.0",
+  "metadata": {
+    "description": "10 AI-powered skills for Product Managers — write docs, build decks, research competitors, review strategy, and track your work",
+    "version": "1.0.0"
+  },
   "plugins": [
     {
       "name": "calendar",
