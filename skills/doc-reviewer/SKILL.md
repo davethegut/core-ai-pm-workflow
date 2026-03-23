@@ -257,7 +257,7 @@ You do not write back to Google Docs; only suggest text and resolutions for the 
 
 ## Process Summary
 
-1. **Get document content** — From link (gdocs_read.py with `--comments` when appropriate) or from pasted content in chat.
+1. **Get document content** — From link (use the **gdocs-share** skill with `--comments` when appropriate) or from pasted content in chat.
 2. **Detect format** — Concept one-pager, Problem/Solution one-pager, Decision one-pager, PRFAQ, PRD, or unknown. If known, load the relevant format criteria from the `doc-writer` skill and templates.
 3. **Detect persona** — CTO, GM, or none. Apply the corresponding review mode above.
 4. **Deliver feedback** — Format-aware (structure, sections, standards) + persona-aware (tone, priorities). If comments were fetched and the user asked to resolve them, add per-comment suggestions.

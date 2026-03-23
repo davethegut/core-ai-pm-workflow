@@ -1,3 +1,8 @@
+---
+name: my-initiatives
+description: Track and surface your GitHub issues and initiatives across multiple repositories. Use when the user asks about epics, team issues, PM action items, or wants to sync GitHub tasks.
+---
+
 # My Initiatives Skill
 
 ## Purpose

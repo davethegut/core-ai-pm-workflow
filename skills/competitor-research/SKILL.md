@@ -1,3 +1,8 @@
+---
+name: competitor-research
+description: Run structured competitor research using web searches, GitHub analysis, and parallel subagent workflows. Use when comparing vendors, analyzing competitor features, or answering "How does X do Y?"
+---
+
 # Competitor Research Skill
 
 ## Purpose

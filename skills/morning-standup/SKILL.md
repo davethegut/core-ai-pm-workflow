@@ -1,3 +1,8 @@
+---
+name: morning-standup
+description: Generate a daily standup report with key metrics, status indicators, and actionable highlights. Use when the user asks to run standup, check metrics, or wants a morning check-in on key indicators.
+---
+
 # Morning Standup Skill
 
 ## Purpose
