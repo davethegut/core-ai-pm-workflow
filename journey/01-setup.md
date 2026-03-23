@@ -79,7 +79,7 @@ ln -s ../../skills/* .cursor/skills/
 ## 5. Create Your Output Directories
 
 ```bash
-mkdir -p output/{html,presentations,docs,competitor-research}
+mkdir -p output/{html,presentations,one-pagers,prfaqs,prds,deep-dives,competitor-research}
 mkdir -p tasks
 mkdir -p data/competitors/profiles
 ```

@@ -63,7 +63,7 @@ The AI will:
 ## What You Built
 
 By now you should have:
-- An HTML deep-dive document in `output/html/` or `deep-dives/`
+- An HTML deep-dive document in `output/deep-dives/`
 - A competitor research file in `output/competitor-research/`
 
 Both are real artifacts you can share with your team.

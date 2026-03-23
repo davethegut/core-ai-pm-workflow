@@ -117,6 +117,8 @@ core-ai-pm-workflow/
 │   └── my-initiatives/    ← GitHub issue tracker
 ├── journey/               ← Guided walkthrough (8 steps)
 ├── templates/             ← Document format templates
+├── assets/                ← Branding assets (banner, etc.)
+├── docs/                  ← HTML documentation pages
 ├── output/                ← Generated artifacts (gitignored, created on first use)
 ├── tasks/                 ← Your task tracking
 └── data/                  ← Persistent data and configs (gitignored, created on first use)
@@ -184,7 +186,7 @@ Yes. Create a new directory in `skills/` with a `SKILL.md` file following the sa
 
 ## Contributing
 
-Found a bug? Have an idea for a new skill? [Open an issue](../../issues) or submit a PR.
+Found a bug? Have an idea for a new skill? [Open an issue](https://github.com/davethegut/core-ai-pm-workflow/issues) or submit a PR.
 
 ---
 
