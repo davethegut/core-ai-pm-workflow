@@ -11,7 +11,7 @@
     {
       "name": "calendar",
       "version": "1.0.0",
-      "author": "David Elgut",
+      "author": { "name": "David Elgut", "url": "https://github.com/davethegut" },
       "source": "./skills/calendar",
       "description": "Fetch and display Google Calendar events — today's schedule, specific dates, or multi-day views",
       "tags": ["productivity", "calendar", "google"],
@@ -20,7 +20,7 @@
     {
       "name": "gdocs-share",
       "version": "1.0.0",
-      "author": "David Elgut",
+      "author": { "name": "David Elgut", "url": "https://github.com/davethegut" },
       "source": "./skills/gdocs-share",
       "description": "Read, write, and sync Google Docs via OAuth — convert between markdown and Google Docs bidirectionally",
       "tags": ["productivity", "google-docs", "writing"],
@@ -29,7 +29,7 @@
     {
       "name": "deep-dive",
       "version": "1.0.0",
-      "author": "David Elgut",
+      "author": { "name": "David Elgut", "url": "https://github.com/davethegut" },
       "source": "./skills/deep-dive",
       "description": "Research any GitHub repo and generate a polished HTML deep-dive reference document",
       "tags": ["research", "github", "documentation", "onboarding"],
@@ -38,7 +38,7 @@
     {
       "name": "competitor-research",
       "version": "1.0.0",
-      "author": "David Elgut",
+      "author": { "name": "David Elgut", "url": "https://github.com/davethegut" },
       "source": "./skills/competitor-research",
       "description": "Structured competitive analysis from web search, GitHub repos, and public data",
       "tags": ["research", "competitive-analysis", "strategy"],
@@ -47,7 +47,7 @@
     {
       "name": "doc-writer",
       "version": "1.0.0",
-      "author": "David Elgut",
+      "author": { "name": "David Elgut", "url": "https://github.com/davethegut" },
       "source": "./skills/doc-writer",
       "description": "Write PM documents in 7 formats — one-pagers, PRFAQs, PRDs, epics, and GitHub issues with auto-detected format",
       "tags": ["writing", "documents", "prd", "prfaq", "one-pager"],
@@ -56,7 +56,7 @@
     {
       "name": "doc-reviewer",
       "version": "1.0.0",
-      "author": "David Elgut",
+      "author": { "name": "David Elgut", "url": "https://github.com/davethegut" },
       "source": "./skills/doc-reviewer",
       "description": "Review documents with CTO and GM persona feedback based on Kent Beck's 3X framework",
       "tags": ["writing", "review", "feedback", "strategy"],
@@ -65,7 +65,7 @@
     {
       "name": "html-reference-page",
       "version": "1.0.0",
-      "author": "David Elgut",
+      "author": { "name": "David Elgut", "url": "https://github.com/davethegut" },
       "source": "./skills/html-reference-page",
       "description": "Generate polished, self-contained HTML reference pages with a professional dark theme",
       "tags": ["writing", "html", "documentation", "reference"],
@@ -74,7 +74,7 @@
     {
       "name": "presentation",
       "version": "1.0.0",
-      "author": "David Elgut",
+      "author": { "name": "David Elgut", "url": "https://github.com/davethegut" },
       "source": "./skills/presentation",
       "description": "Generate interactive HTML slide deck presentations with navigation, fullscreen, and print-to-PDF",
       "tags": ["writing", "presentation", "slides", "html"],
@@ -83,7 +83,7 @@
     {
       "name": "morning-standup",
       "version": "1.0.0",
-      "author": "David Elgut",
+      "author": { "name": "David Elgut", "url": "https://github.com/davethegut" },
       "source": "./skills/morning-standup",
       "description": "Daily metric check-in with configurable alerts — works with any SQL-compatible data source",
       "tags": ["productivity", "metrics", "standup", "analytics"],
@@ -92,7 +92,7 @@
     {
       "name": "my-initiatives",
       "version": "1.0.0",
-      "author": "David Elgut",
+      "author": { "name": "David Elgut", "url": "https://github.com/davethegut" },
       "source": "./skills/my-initiatives",
       "description": "Track GitHub issues across repos and sync to your task list with configurable labels and categories",
       "tags": ["productivity", "github", "project-management", "task-tracking"],
