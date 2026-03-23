@@ -18,17 +18,17 @@ The skill needs a way to execute SQL queries against your data source. Set the `
 
 Examples:
 ```yaml
-# BigQuery
-query_runner: "python3 tools/bigquery/query_runner.py -y"
+# BigQuery (using bq CLI)
+query_runner: "bq query --use_legacy_sql=false --format=json"
+
+# BigQuery (using a custom Python script)
+query_runner: "python3 my_query_runner.py -y"
 
 # PostgreSQL
 query_runner: "psql -h myhost -d mydb -c"
 
 # Snowflake
 query_runner: "snowsql -q"
-
-# Generic script
-query_runner: "python3 tools/my_query_runner.py --execute"
 ```
 
 ### Step 2: Define Your Metrics
@@ -42,7 +42,7 @@ An example configuration is provided at `skills/morning-standup/metrics.example.
 ```yaml
 # skills/morning-standup/metrics.yaml
 
-query_runner: "python3 tools/my_query_runner.py --execute"
+query_runner: "python3 my_query_runner.py --execute"
 
 role: "Product Manager"  # Used to tailor report framing
 

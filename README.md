@@ -117,10 +117,9 @@ core-ai-pm-workflow/
 │   └── my-initiatives/    ← GitHub issue tracker
 ├── journey/               ← Guided walkthrough (8 steps)
 ├── templates/             ← Document format templates
-├── tools/                 ← Python scripts (calendar, gdocs)
-├── output/                ← Generated artifacts (gitignored)
+├── output/                ← Generated artifacts (gitignored, created on first use)
 ├── tasks/                 ← Your task tracking
-└── data/                  ← Persistent data and configs
+└── data/                  ← Persistent data and configs (gitignored, created on first use)
 ```
 
 ---

@@ -29,10 +29,9 @@ This repo ships 10 skills. Each skill is a self-contained prompt + process in `s
 skills/           → All 10 skills (SKILL.md files + supporting templates)
 journey/          → Guided walkthrough (start here if you're new)
 templates/        → Document templates (PRD, PRFAQ, one-pager, epic)
-output/           → Where generated artifacts go (gitignored)
-tools/            → Python scripts (calendar, Google Docs)
 tasks/            → Your task tracking (ACTIVE.md, GOALS.md)
-data/             → Persistent data (competitor profiles, configs)
+output/           → Where generated artifacts go (gitignored, created on first use)
+data/             → Persistent data like competitor profiles (gitignored, created on first use)
 ```
 
 ## Getting Started
@@ -52,9 +51,8 @@ data/             → Persistent data (competitor profiles, configs)
 
 | Tool | Required For | Install |
 |------|-------------|---------|
-| `gh` CLI | deep-dive, my-initiatives | `brew install gh && gh auth login` |
-| Python 3.9+ | calendar, gdocs-share | Usually pre-installed on macOS |
-| Google OAuth | calendar, gdocs-share | Configured on first run (browser opens automatically) |
+| `gh` CLI | deep-dive, my-initiatives, competitor-research | `brew install gh && gh auth login` |
+| Python 3.9+ | calendar, gdocs-share (if you add your own scripts) | Usually pre-installed on macOS |
 
 ## How Skills Work
 

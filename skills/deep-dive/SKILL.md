@@ -28,7 +28,7 @@ Ask the user three things conversationally (do not assume defaults without askin
 
 1. **Topic** — What do you want to learn about? (e.g., "the router", "plugin lifecycle", "authentication flow")
 2. **Repository** — Which GitHub repo? (e.g., `vercel/next.js`, `facebook/react`). If there is a local clone in the workspace, confirm that the user wants to use it.
-3. **Output directory** — Where to save the HTML file? Suggest `./deep-dives/` as the default.
+3. **Output directory** — Where to save the HTML file? Suggest `output/deep-dives/` as the default.
 
 ### Step 2: Research
 

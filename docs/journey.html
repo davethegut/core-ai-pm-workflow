@@ -688,15 +688,11 @@ gh auth status  # Verify it worked</code></pre>
         </ol>
 
         <h3>Configure credentials</h3>
-        <p>Place your OAuth client credentials where the tools expect them:</p>
-<pre><code># For calendar
-mkdir -p tools/calendar
-# Copy your OAuth client JSON to tools/calendar/client_secret.json
-
-# For Google Docs
-mkdir -p tools/gdocs
-# Copy your OAuth client JSON to tools/gdocs/client_secret.json</code></pre>
-        <p>The first time you run either tool, a browser window will open for you to authorize access. After that, tokens are stored locally at <code>~/.ai-pm-workflow/</code> and auto-refresh.</p>
+        <p>Store your OAuth client credentials in a central location:</p>
+<pre><code>mkdir -p ~/.ai-pm-workflow
+# Copy your OAuth client JSON to ~/.ai-pm-workflow/client_secret.json</code></pre>
+        <p>The first time you use either skill, a browser window will open for you to authorize access. After that, tokens are stored locally at <code>~/.ai-pm-workflow/</code> and auto-refresh.</p>
+        <p>See <code>skills/calendar/SKILL.md</code> and <code>skills/gdocs-share/SKILL.md</code> for detailed setup instructions.</p>
 
         <h2>4. Configure Your AI Tool</h2>
 

@@ -50,19 +50,16 @@ If you want to use the **calendar** and **gdocs-share** skills, you'll need Goog
 
 ### Configure credentials
 
-Place your OAuth client credentials where the tools expect them:
+Store your OAuth client credentials in a central location:
 
 ```bash
-# For calendar
-mkdir -p tools/calendar
-# Copy your OAuth client JSON to tools/calendar/client_secret.json
-
-# For Google Docs
-mkdir -p tools/gdocs
-# Copy your OAuth client JSON to tools/gdocs/client_secret.json
+mkdir -p ~/.ai-pm-workflow
+# Copy your OAuth client JSON to ~/.ai-pm-workflow/client_secret.json
 ```
 
-The first time you run either tool, a browser window will open for you to authorize access. After that, tokens are stored locally at `~/.ai-pm-workflow/` and auto-refresh.
+The first time you use either skill, a browser window will open for you to authorize access. After that, tokens are stored locally at `~/.ai-pm-workflow/` and auto-refresh.
+
+See `skills/calendar/SKILL.md` and `skills/gdocs-share/SKILL.md` for detailed setup instructions for each skill.
 
 ## 4. Configure Your AI Tool
 

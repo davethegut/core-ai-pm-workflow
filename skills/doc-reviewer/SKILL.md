@@ -14,11 +14,7 @@ Use this skill when a user asks to **review a document** or get **persona-based 
 1. **Google Docs link** — User shares a URL (e.g. `https://docs.google.com/document/d/.../edit`). Fetch the doc (and comments when relevant) via the gdocs tool.
 2. **Pasted in chat** — User pastes the document text or says "review this" and attaches/pastes content. Use that text directly as the document body (no comments).
 
-When the input is a **link**, run:
-```bash
-source .venv/bin/activate && python3 tools/gdocs/gdocs_read.py "<URL>" --comments
-```
-Use `--comments` when the user mentions comments, resolving feedback, or when you want full context (comments often contain stakeholder feedback). Output is document body in markdown + a `## Comments` section. Use both for the review and, if requested, suggest how to resolve each comment.
+When the input is a **link**, use the **gdocs-share** skill (`skills/gdocs-share/SKILL.md`) to fetch the document content. Use the `--comments` flag when the user mentions comments, resolving feedback, or when you want full context (comments often contain stakeholder feedback). Output is document body in markdown + a `## Comments` section. Use both for the review and, if requested, suggest how to resolve each comment.
 
 When the input is **pasted**, no tool call is needed — use the pasted content as the document body.
 
@@ -279,4 +275,4 @@ You do not write back to Google Docs; only suggest text and resolutions for the 
 - **Document formats and writing standards**: `skills/doc-writer/SKILL.md`
 - **PRFAQ template**: `templates/prfaq-template.md`
 - **One-pager examples**: `templates/one-pager-examples.md`
-- **Fetching a doc from a link**: `tools/gdocs/gdocs_read.py --comments`
+- **Fetching a doc from a link**: See `skills/gdocs-share/SKILL.md` (use `--comments` flag)
