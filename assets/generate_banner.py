@@ -4,8 +4,8 @@
 from PIL import Image, ImageDraw, ImageFont
 import os
 
-WIDTH = 1200
-HEIGHT = 400
+WIDTH = 1800
+HEIGHT = 600
 BG_COLOR = (30, 30, 30)
 
 # Claude Code accent colors
@@ -20,39 +20,44 @@ draw = ImageDraw.Draw(img)
 
 # Try to load a nice font, fall back to default
 try:
-    font_large = ImageFont.truetype("/System/Library/Fonts/SFMono-Bold.otf", 72)
-    font_medium = ImageFont.truetype("/System/Library/Fonts/SFMono-Bold.otf", 48)
-    font_small = ImageFont.truetype("/System/Library/Fonts/SFMono-Regular.otf", 18)
-    font_tiny = ImageFont.truetype("/System/Library/Fonts/SFMono-Regular.otf", 14)
+    font_large = ImageFont.truetype("/System/Library/Fonts/SFMono-Bold.otf", 150)
+    font_small = ImageFont.truetype("/System/Library/Fonts/SFMono-Regular.otf", 24)
+    font_tiny = ImageFont.truetype("/System/Library/Fonts/SFMono-Regular.otf", 16)
 except:
     try:
-        font_large = ImageFont.truetype("/System/Library/Fonts/Menlo.ttc", 72)
-        font_medium = ImageFont.truetype("/System/Library/Fonts/Menlo.ttc", 48)
-        font_small = ImageFont.truetype("/System/Library/Fonts/Menlo.ttc", 18)
-        font_tiny = ImageFont.truetype("/System/Library/Fonts/Menlo.ttc", 14)
+        font_large = ImageFont.truetype("/System/Library/Fonts/Menlo.ttc", 150)
+        font_small = ImageFont.truetype("/System/Library/Fonts/Menlo.ttc", 24)
+        font_tiny = ImageFont.truetype("/System/Library/Fonts/Menlo.ttc", 16)
     except:
         font_large = ImageFont.load_default()
-        font_medium = ImageFont.load_default()
         font_small = ImageFont.load_default()
         font_tiny = ImageFont.load_default()
 
-# Line 1: "THE CORE" in orange
-draw.text((60, 50), "THE CORE", fill=LIGHT_ORANGE, font=font_large)
+# Helper to center text
+def center_x(text, font):
+    bbox = draw.textbbox((0, 0), text, font=font)
+    tw = bbox[2] - bbox[0]
+    return (WIDTH - tw) // 2
 
-# Line 2: "AI PM" in orange
-draw.text((60, 135), "AI PM", fill=ORANGE, font=font_large)
+# Line 1: "THE CORE" in light orange
+draw.text((center_x("THE CORE", font_large), 30), "THE CORE", fill=LIGHT_ORANGE, font=font_large)
+
+# Line 2: "AI PM" in deeper orange
+draw.text((center_x("AI PM", font_large), 170), "AI PM", fill=ORANGE, font=font_large)
 
 # Line 3: "WORKFLOW" in white
-draw.text((60, 220), "WORKFLOW", fill=WHITE, font=font_large)
+draw.text((center_x("WORKFLOW", font_large), 310), "WORKFLOW", fill=WHITE, font=font_large)
 
-# Accent bar
-draw.rectangle([(60, 315), (140, 318)], fill=ORANGE)
+# Accent bar (centered)
+bar_w = 100
+draw.rectangle([(WIDTH//2 - bar_w//2, 485), (WIDTH//2 + bar_w//2, 489)], fill=ORANGE)
 
-# Tagline
-draw.text((60, 335), "10 SKILLS  ·  1 TOOLKIT  ·  HOURS SAVED", fill=MUTED, font=font_small)
+# Tagline (centered)
+tagline = "10 SKILLS  ·  1 TOOLKIT  ·  HOURS SAVED"
+draw.text((center_x(tagline, font_small), 510), tagline, fill=MUTED, font=font_small)
 
 # Bottom right
-draw.text((WIDTH - 340, HEIGHT - 30), "works with Claude Code & Cursor", fill=DARK_MUTED, font=font_tiny)
+draw.text((WIDTH - 380, HEIGHT - 30), "works with Claude Code & Cursor", fill=DARK_MUTED, font=font_tiny)
 
 out_path = os.path.join(os.path.dirname(__file__), 'banner.png')
 img.save(out_path, 'PNG')
