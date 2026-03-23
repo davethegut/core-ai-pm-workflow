@@ -128,8 +128,90 @@
     /* ========== HERO ========== */
     .hero {
       padding: 140px 0 96px;
-      text-align: center;
       position: relative;
+    }
+
+    .hero .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-left {
+      text-align: left;
+    }
+
+    .hero-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Terminal mock */
+    .terminal-mock {
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 680px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .terminal-titlebar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: #242424;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .terminal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .terminal-dot.red { background: #ff5f56; }
+    .terminal-dot.yellow { background: #ffbd2e; }
+    .terminal-dot.green { background: #27c93f; }
+
+    .terminal-title {
+      flex: 1;
+      text-align: center;
+      font-size: 12px;
+      color: #666;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .terminal-body {
+      padding: 20px;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 13px;
+      line-height: 1.8;
+      color: #8892a4;
+      min-height: 320px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .terminal-body .prompt { color: #27c93f; }
+    .terminal-body .cmd { color: #e8e8e8; }
+    .terminal-body .output { color: #D97757; }
+    .terminal-body .muted { color: #555; }
+    .terminal-body .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 16px;
+      background: #27c93f;
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
     }
 
     .hero::after {
@@ -143,42 +225,42 @@
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
     }
 
-    .hero-banner {
-      max-width: 720px;
-      width: 100%;
-      margin: 0 auto 40px;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .hero-banner img {
-      width: 100%;
-      height: auto;
-      display: block;
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 50px;
+      border: 1px solid rgba(217, 119, 87, 0.3);
+      background: rgba(217, 119, 87, 0.08);
+      color: #D97757;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 32px;
     }
 
     .hero h1 {
-      font-size: clamp(28px, 5vw, 48px);
+      font-size: clamp(36px, 6vw, 72px);
       font-weight: 800;
-      max-width: 800px;
-      margin: 0 auto 24px;
-      line-height: 1.15;
+      max-width: 700px;
+      margin: 0 0 24px;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
     }
 
     .hero h1 .accent { color: #D97757; }
 
     .hero-tagline {
-      font-size: clamp(16px, 2.2vw, 20px);
+      font-size: clamp(16px, 2.2vw, 18px);
       color: #8892a4;
-      max-width: 640px;
-      margin: 0 auto 40px;
+      max-width: 560px;
+      margin: 0 0 40px;
       line-height: 1.7;
     }
 
     .hero-ctas {
       display: flex;
       gap: 16px;
-      justify-content: center;
       flex-wrap: wrap;
       margin-bottom: 24px;
     }
@@ -663,6 +745,13 @@
       .highlight-block { padding: 24px; }
 
       .hero { padding: 120px 0 64px; }
+      .hero .container { grid-template-columns: 1fr; }
+      .hero-left { text-align: center; }
+      .hero h1 { margin: 0 auto 24px; }
+      .hero-tagline { margin: 0 auto 40px; }
+      .hero-ctas { justify-content: center; }
+      .hero-right { margin-top: 32px; }
+      .terminal-mock { max-width: 400px; margin: 0 auto; }
     }
 
     @media (max-width: 480px) {
@@ -733,16 +822,27 @@
   <!-- ========== HERO ========== -->
   <section class="hero" id="hero">
     <div class="container">
-      <div class="hero-banner">
-        <img src="assets/banner.png" alt="The Core AI PM Workflow banner" width="720" height="400">
+      <div class="hero-left">
+        <div class="hero-badge">&#9889; 10 skills &middot; clone and go</div>
+        <h1>The Complete<br><span class="accent">AI Toolkit</span><br>for PMs</h1>
+        <p class="hero-tagline">Write docs, build decks, research competitors, review strategy, and track your work — all from your terminal. Built by a PM, for PMs.</p>
+        <div class="hero-ctas">
+          <a href="journey.html#step-1" class="btn btn-primary">Start the Journey &#8594;</a>
+          <a href="https://github.com/davethegut/core-ai-pm-workflow" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">View on GitHub</a>
+        </div>
       </div>
-      <h1>Stop writing docs from scratch.<br><span class="accent">Stop spending 2 hours on a deck that should take 20 minutes.</span></h1>
-      <p class="hero-tagline">10 AI-powered skills built by a PM, for PMs. Clone this repo and your AI assistant becomes a PM productivity machine.</p>
-      <div class="hero-ctas">
-        <a href="journey.html#step-1" class="btn btn-primary">Start the Journey &#8594;</a>
-        <a href="https://github.com/davethegut/core-ai-pm-workflow" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">View on GitHub</a>
+      <div class="hero-right">
+        <div class="terminal-mock">
+          <div class="terminal-titlebar">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+            <span class="terminal-title">claude — core-ai-pm-workflow</span>
+          </div>
+          <div class="terminal-body" id="terminal-anim">
+          </div>
+        </div>
       </div>
-      <p class="hero-subtitle">Write docs, build decks, research competitors, review strategy, and track your work — all from your terminal.</p>
     </div>
   </section>
 
@@ -1070,6 +1170,100 @@
           });
         });
       }
+    })();
+
+    // Terminal typing animation
+    (function() {
+      var terminal = document.getElementById('terminal-anim');
+      if (!terminal) return;
+
+      var lines = [
+        { type: 'cmd',    text: '$ git clone https://github.com/davethegut/core-ai-pm-workflow.git', delay: 800 },
+        { type: 'muted',  text: 'Cloning into \'core-ai-pm-workflow\'...', delay: 1000 },
+        { type: 'muted',  text: 'done.', delay: 500 },
+        { type: 'cmd',    text: '$ cd core-ai-pm-workflow', delay: 700 },
+        { type: 'cmd',    text: '$ claude', delay: 900 },
+        { type: 'blank',  text: '', delay: 400 },
+        { type: 'output', text: '  ▸ Loading skills...', delay: 700 },
+        { type: 'output', text: '  ▸ calendar ✓', delay: 280 },
+        { type: 'output', text: '  ▸ doc-writer ✓', delay: 280 },
+        { type: 'output', text: '  ▸ doc-reviewer ✓', delay: 280 },
+        { type: 'output', text: '  ▸ deep-dive ✓', delay: 280 },
+        { type: 'output', text: '  ▸ presentation ✓', delay: 280 },
+        { type: 'output', text: '  ▸ competitor-research ✓', delay: 280 },
+        { type: 'output', text: '  ▸ morning-standup ✓', delay: 280 },
+        { type: 'output', text: '  ▸ my-initiatives ✓', delay: 280 },
+        { type: 'output', text: '  ▸ html-reference-page ✓', delay: 280 },
+        { type: 'output', text: '  ▸ gdocs-share ✓', delay: 280 },
+        { type: 'blank',  text: '', delay: 400 },
+        { type: 'success', text: '  ✓ 10 skills loaded. Ready.', delay: 1500 },
+        { type: 'blank',  text: '', delay: 300 },
+        { type: 'prompt', text: '$ ', delay: 0 }
+      ];
+
+      function playAnimation() {
+        terminal.innerHTML = '';
+        var i = 0;
+        function nextLine() {
+          if (i >= lines.length) {
+            // Add blinking cursor to last line
+            var lastDiv = terminal.lastElementChild;
+            if (lastDiv) {
+              var cursor = document.createElement('span');
+              cursor.className = 'cursor';
+              lastDiv.appendChild(cursor);
+            }
+            // Pause then restart the loop
+            setTimeout(function() {
+              playAnimation();
+            }, 4000);
+            return;
+          }
+          var line = lines[i];
+          var div = document.createElement('div');
+
+          if (line.type === 'blank') {
+            div.innerHTML = '&nbsp;';
+          } else if (line.type === 'cmd') {
+            div.innerHTML = '<span class="prompt">' + line.text.substring(0, 1) + '</span> <span class="cmd">' + line.text.substring(2) + '</span>';
+          } else if (line.type === 'output') {
+            div.innerHTML = '<span class="output">' + line.text + '</span>';
+          } else if (line.type === 'success') {
+            div.innerHTML = '<span class="output" style="color:#27c93f;">' + line.text + '</span>';
+          } else if (line.type === 'muted') {
+            div.innerHTML = '<span class="muted">' + line.text + '</span>';
+          } else if (line.type === 'prompt') {
+            div.innerHTML = '<span class="prompt">$</span> ';
+          }
+
+          div.style.opacity = '0';
+          div.style.transform = 'translateY(4px)';
+          div.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+          terminal.appendChild(div);
+
+          requestAnimationFrame(function() {
+            div.style.opacity = '1';
+            div.style.transform = 'translateY(0)';
+          });
+
+          terminal.scrollTop = terminal.scrollHeight;
+
+          i++;
+          setTimeout(nextLine, line.delay);
+        }
+        nextLine();
+      }
+
+      // Start when terminal scrolls into view
+      var started = false;
+      var observer = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting && !started) {
+          started = true;
+          playAnimation();
+        }
+      }, { threshold: 0.3 });
+
+      observer.observe(terminal);
     })();
   </script>
 
