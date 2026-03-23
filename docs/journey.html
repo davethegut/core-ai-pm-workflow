@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Journey — The Core AI PM Workflow</title>
+  <meta name="description" content="An interactive 8-step walkthrough to master the Core AI PM Workflow. Setup, research, write, review, present, and ship — all powered by AI skills.">
+  <meta property="og:title" content="Journey — The Core AI PM Workflow">
+  <meta property="og:description" content="An interactive 8-step walkthrough to master the Core AI PM Workflow. Setup, research, write, review, present, and ship — all powered by AI skills.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/davethegut/core-ai-pm-workflow/main/assets/banner.png">
+  <meta property="og:url" content="https://davethegut.github.io/core-ai-pm-workflow/journey.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #141414;
+      color: #e8e8e8;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    code, pre, .mono {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    }
+
+    a { color: #D97757; text-decoration: none; transition: color 0.2s; }
+    a:hover { color: #E8956A; text-decoration: underline; }
+
+    h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+
+    /* ========== NAV ========== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(20, 20, 20, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    nav .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .nav-back {
+      font-size: 14px;
+      font-weight: 500;
+      color: #8892a4;
+    }
+
+    .nav-back:hover { color: #e8e8e8; text-decoration: none; }
+
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: #8892a4;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #e8e8e8; text-decoration: none; }
+
+    /* ========== LAYOUT ========== */
+    .journey-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 80px 24px 0;
+      min-height: 100vh;
+    }
+
+    /* ========== SIDEBAR ========== */
+    .sidebar {
+      position: sticky;
+      top: 80px;
+      align-self: start;
+      padding: 24px 0;
+      height: calc(100vh - 80px);
+      overflow-y: auto;
+    }
+
+    .sidebar-progress {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #8892a4;
+      margin-bottom: 24px;
+      padding-left: 4px;
+    }
+
+    .step-nav {
+      list-style: none;
+      position: relative;
+      padding-left: 0;
+    }
+
+    /* Vertical connecting line */
+    .step-nav::before {
+      content: '';
+      position: absolute;
+      left: 17px;
+      top: 18px;
+      bottom: 18px;
+      width: 2px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 1px;
+    }
+
+    .step-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      border-radius: 8px;
+    }
+
+    .step-nav-item:hover {
+      background: rgba(255,255,255,0.04);
+    }
+
+    .step-circle {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      border-radius: 50%;
+      border: 2px solid #D97757;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: #D97757;
+      background: transparent;
+      transition: all 0.2s;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-nav-item.active .step-circle {
+      background: #D97757;
+      color: #141414;
+    }
+
+    .step-nav-item.completed .step-circle {
+      background: rgba(217, 119, 87, 0.2);
+      border-color: #D97757;
+      color: #D97757;
+    }
+
+    .step-nav-item.completed .step-circle .step-num { display: none; }
+    .step-nav-item.completed .step-circle .step-check { display: block; }
+    .step-circle .step-check { display: none; font-size: 16px; }
+
+    .step-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #8892a4;
+      transition: color 0.2s;
+    }
+
+    .step-nav-item.active .step-label {
+      color: #e8e8e8;
+    }
+
+    .step-nav-item.completed .step-label {
+      color: #8892a4;
+    }
+
+    /* ========== CONTENT AREA ========== */
+    .content-area {
+      padding: 24px 0 80px 48px;
+      min-width: 0;
+    }
+
+    .journey-step {
+      display: none;
+    }
+
+    .journey-step.active {
+      display: block;
+    }
+
+    .journey-step.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== CONTENT STYLING ========== */
+    .journey-step h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #e8e8e8;
+      margin-bottom: 12px;
+    }
+
+    .journey-step > p:first-of-type {
+      font-size: 1.1rem;
+      color: #8892a4;
+      margin-bottom: 32px;
+    }
+
+    .journey-step h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #e8e8e8;
+      margin-top: 48px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #D97757;
+    }
+
+    .journey-step h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #e8e8e8;
+      margin-top: 32px;
+      margin-bottom: 12px;
+    }
+
+    .journey-step p {
+      font-size: 1rem;
+      color: #c8c8d0;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .journey-step code {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 0.9em;
+      background: rgba(217, 119, 87, 0.15);
+      color: #D97757;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .journey-step pre {
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 20px;
+      overflow-x: auto;
+      margin-bottom: 20px;
+      margin-top: 8px;
+    }
+
+    .journey-step pre code {
+      background: none;
+      color: #c8c8d0;
+      padding: 0;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .journey-step ul,
+    .journey-step ol {
+      color: #c8c8d0;
+      margin-bottom: 16px;
+      padding-left: 24px;
+    }
+
+    .journey-step li {
+      margin-bottom: 8px;
+      line-height: 1.7;
+    }
+
+    .journey-step li strong {
+      color: #e8e8e8;
+    }
+
+    .journey-step table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 24px;
+      background: #242424;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .journey-step thead tr {
+      background: #1a1a1a;
+    }
+
+    .journey-step th,
+    .journey-step td {
+      padding: 12px 16px;
+      text-align: left;
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 14px;
+      color: #c8c8d0;
+    }
+
+    .journey-step th {
+      font-weight: 600;
+      color: #e8e8e8;
+    }
+
+    .journey-step blockquote {
+      border-left: 3px solid #D97757;
+      padding: 12px 20px;
+      margin: 16px 0;
+      font-style: italic;
+      color: #8892a4;
+    }
+
+    .journey-step hr {
+      border: none;
+      height: 1px;
+      background: linear-gradient(to right, rgba(255,255,255,0.08), rgba(217,119,87,0.3), rgba(255,255,255,0.08));
+      margin: 40px 0;
+    }
+
+    .journey-step a {
+      color: #D97757;
+    }
+
+    .journey-step a:hover {
+      color: #E8956A;
+      text-decoration: underline;
+    }
+
+    /* ========== BOTTOM NAVIGATION ========== */
+    .step-bottom-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn:hover { text-decoration: none; }
+
+    a.btn-primary, .btn-primary {
+      background: #D97757;
+      color: #141414 !important;
+    }
+
+    a.btn-primary:hover, .btn-primary:hover {
+      background: #E8956A;
+      color: #141414 !important;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(217, 119, 87, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #e8e8e8;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.04);
+      color: #e8e8e8;
+      transform: translateY(-1px);
+    }
+
+    .step-indicator {
+      font-size: 13px;
+      font-weight: 500;
+      color: #8892a4;
+    }
+
+    .btn-hidden { visibility: hidden; pointer-events: none; }
+
+    /* ========== JOURNEY INTRO ========== */
+    .journey-intro {
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+
+    .journey-intro h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #e8e8e8;
+      margin-bottom: 12px;
+    }
+
+    .journey-intro p {
+      font-size: 1.1rem;
+      color: #8892a4;
+      line-height: 1.7;
+    }
+
+    .journey-prereq {
+      background: #242424;
+      border-left: 3px solid #D97757;
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin-top: 16px;
+      color: #c8c8d0;
+      font-size: 14px;
+    }
+
+    .journey-prereq strong {
+      color: #e8e8e8;
+    }
+
+    .journey-prereq pre {
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 12px;
+      overflow-x: auto;
+    }
+
+    .journey-prereq pre code {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 14px;
+      color: #c8c8d0;
+      line-height: 1.6;
+    }
+
+    /* ========== JOURNEY COMPLETE ========== */
+    .journey-complete {
+      background: #242424;
+      border-radius: 12px;
+      padding: 32px;
+      margin: 32px 0;
+      text-align: center;
+    }
+
+    .journey-complete h2 {
+      color: white;
+      margin-bottom: 12px;
+      border-bottom: none;
+      margin-top: 0;
+      padding-bottom: 0;
+    }
+
+    .journey-complete ul {
+      text-align: left;
+      max-width: 500px;
+      margin: 16px auto;
+    }
+
+    .journey-complete-ctas {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 24px;
+    }
+
+    /* ========== KEYBOARD HINT ========== */
+    .keyboard-hint {
+      font-size: 11px;
+      color: #555;
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      .journey-layout {
+        grid-template-columns: 1fr;
+        padding-top: 60px;
+      }
+
+      .sidebar {
+        position: relative;
+        top: 0;
+        height: auto;
+        padding: 16px 0 0;
+        overflow-x: auto;
+        overflow-y: visible;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .sidebar-progress {
+        margin-bottom: 12px;
+        font-size: 11px;
+      }
+
+      .step-nav {
+        display: flex;
+        gap: 4px;
+        padding-bottom: 16px;
+      }
+
+      .step-nav::before { display: none; }
+
+      .step-nav-item {
+        flex-direction: column;
+        gap: 4px;
+        padding: 8px 12px;
+        min-width: auto;
+      }
+
+      .step-label { display: none; }
+
+      .content-area {
+        padding: 24px 0 60px;
+      }
+
+      .step-bottom-nav {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .step-indicator {
+        order: -1;
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .step-circle {
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+        font-size: 12px;
+      }
+
+      .step-nav-item {
+        padding: 6px 8px;
+      }
+
+      .content-area {
+        padding: 16px 0 48px;
+      }
+
+      .journey-step h1 { font-size: 1.6rem; }
+      .journey-step h2 { font-size: 1.2rem; }
+
+      .btn {
+        padding: 12px 20px;
+        font-size: 14px;
+      }
+
+      nav .nav-inner { padding: 0 16px; }
+      .journey-layout { padding: 60px 16px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-back">&larr; Back to Home</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="https://github.com/davethegut/core-ai-pm-workflow" target="_blank">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- JOURNEY LAYOUT -->
+  <div class="journey-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-progress" id="sidebar-progress">Step 1 of 8</div>
+      <ul class="step-nav" id="step-nav">
+        <li class="step-nav-item active" data-step="1" onclick="showStep(1)">
+          <div class="step-circle"><span class="step-num">1</span><span class="step-check">&#10003;</span></div>
+          <span class="step-label">Setup</span>
+        </li>
+        <li class="step-nav-item" data-step="2" onclick="showStep(2)">
+          <div class="step-circle"><span class="step-num">2</span><span class="step-check">&#10003;</span></div>
+          <span class="step-label">Read</span>
+        </li>
+        <li class="step-nav-item" data-step="3" onclick="showStep(3)">
+          <div class="step-circle"><span class="step-num">3</span><span class="step-check">&#10003;</span></div>
+          <span class="step-label">Research</span>
+        </li>
+        <li class="step-nav-item" data-step="4" onclick="showStep(4)">
+          <div class="step-circle"><span class="step-num">4</span><span class="step-check">&#10003;</span></div>
+          <span class="step-label">Write</span>
+        </li>
+        <li class="step-nav-item" data-step="5" onclick="showStep(5)">
+          <div class="step-circle"><span class="step-num">5</span><span class="step-check">&#10003;</span></div>
+          <span class="step-label">Review</span>
+        </li>
+        <li class="step-nav-item" data-step="6" onclick="showStep(6)">
+          <div class="step-circle"><span class="step-num">6</span><span class="step-check">&#10003;</span></div>
+          <span class="step-label">Present</span>
+        </li>
+        <li class="step-nav-item" data-step="7" onclick="showStep(7)">
+          <div class="step-circle"><span class="step-num">7</span><span class="step-check">&#10003;</span></div>
+          <span class="step-label">Ship</span>
+        </li>
+        <li class="step-nav-item" data-step="8" onclick="showStep(8)">
+          <div class="step-circle"><span class="step-num">8</span><span class="step-check">&#10003;</span></div>
+          <span class="step-label">Customize</span>
+        </li>
+      </ul>
+      <div class="keyboard-hint">Tip: Use ← → arrow keys to navigate</div>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="content-area">
+
+      <div class="journey-intro" id="journey-intro">
+        <h1>The Journey</h1>
+        <p>8 hands-on steps to master the Core AI PM Workflow. Each step builds on the last and produces a real artifact you keep.</p>
+        <div class="journey-prereq">
+          <strong>Before you start:</strong> Clone the repo and open it in Claude Code or Cursor.
+          <pre><code>git clone https://github.com/davethegut/core-ai-pm-workflow.git
+cd core-ai-pm-workflow
+claude</code></pre>
+        </div>
+      </div>
+
+      <!-- STEP 1: Setup -->
+      <article class="journey-step" id="step-1" data-step="1">
+        <h1>Step 1: Setup</h1>
+        <p>Get your toolkit configured and ready to use.</p>
+
+        <h2>Prerequisites</h2>
+        <p>Before starting, make sure you have:</p>
+        <ul>
+          <li><strong>Claude Code</strong> or <strong>Cursor</strong> installed</li>
+          <li><strong>GitHub CLI</strong> (<code>gh</code>) — <a href="https://cli.github.com/" target="_blank">Install guide</a></li>
+          <li><strong>Python 3.9+</strong> — usually pre-installed on macOS</li>
+        </ul>
+
+        <h2>1. Clone and Open</h2>
+<pre><code>git clone https://github.com/davethegut/core-ai-pm-workflow.git
+cd core-ai-pm-workflow</code></pre>
+        <p>Open in your tool of choice:</p>
+<pre><code># Claude Code
+claude
+
+# Cursor
+cursor .</code></pre>
+
+        <h2>2. Authenticate GitHub CLI</h2>
+<pre><code>gh auth login
+gh auth status  # Verify it worked</code></pre>
+        <p>This enables the <strong>deep-dive</strong>, <strong>my-initiatives</strong>, and <strong>doc-writer</strong> (GitHub issue creation) skills.</p>
+
+        <h2>3. Set Up Google OAuth (Optional)</h2>
+        <p>If you want to use the <strong>calendar</strong> and <strong>gdocs-share</strong> skills, you'll need Google OAuth. This requires a Google Cloud project with the Calendar API and Google Docs API enabled.</p>
+
+        <h3>Create a Google Cloud project</h3>
+        <ol>
+          <li>Go to <a href="https://console.cloud.google.com/" target="_blank">Google Cloud Console</a></li>
+          <li>Create a new project (or use an existing one)</li>
+          <li>Enable the <strong>Google Calendar API</strong> and <strong>Google Docs API</strong></li>
+          <li>Create OAuth 2.0 credentials (Desktop application type)</li>
+          <li>Download the credentials JSON file</li>
+        </ol>
+
+        <h3>Configure credentials</h3>
+        <p>Place your OAuth client credentials where the tools expect them:</p>
+<pre><code># For calendar
+mkdir -p tools/calendar
+# Copy your OAuth client JSON to tools/calendar/client_secret.json
+
+# For Google Docs
+mkdir -p tools/gdocs
+# Copy your OAuth client JSON to tools/gdocs/client_secret.json</code></pre>
+        <p>The first time you run either tool, a browser window will open for you to authorize access. After that, tokens are stored locally at <code>~/.ai-pm-workflow/</code> and auto-refresh.</p>
+
+        <h2>4. Configure Your AI Tool</h2>
+
+        <h3>Claude Code</h3>
+        <p>Skills are automatically picked up from the <code>skills/</code> directory via CLAUDE.md. No additional configuration needed.</p>
+
+        <h3>Cursor</h3>
+        <p>Create symlinks so Cursor finds the skills:</p>
+<pre><code>mkdir -p .cursor/skills
+ln -s ../../skills/* .cursor/skills/</code></pre>
+
+        <h2>5. Create Your Output Directories</h2>
+<pre><code>mkdir -p output/{html,presentations,docs,competitor-research}
+mkdir -p tasks
+mkdir -p data/competitors/profiles</code></pre>
+
+        <h2>6. Verify It Works</h2>
+        <p>Try these commands with your AI assistant:</p>
+<pre><code>"What skills do I have available?"
+"Write a concept one-pager for a new feature idea"</code></pre>
+        <p>If both work, you're ready. Head to <a href="#step-2">Step 2: Read</a>.</p>
+
+        <hr>
+
+        <h2>Troubleshooting</h2>
+        <table>
+          <thead>
+            <tr><th>Problem</th><th>Fix</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>gh: command not found</code></td><td>Install GitHub CLI: <code>brew install gh</code></td></tr>
+            <tr><td><code>python3: command not found</code></td><td>Install Python: <code>brew install python</code></td></tr>
+            <tr><td>Google OAuth fails</td><td>Check that APIs are enabled in Google Cloud Console</td></tr>
+            <tr><td>Skills not recognized</td><td>Make sure CLAUDE.md is in the repo root</td></tr>
+          </tbody>
+        </table>
+
+        <div class="step-bottom-nav">
+          <a class="btn btn-secondary btn-hidden">&larr; Previous</a>
+          <span class="step-indicator">Step 1 of 8</span>
+          <a class="btn btn-primary" href="#step-2">Next: Read &rarr;</a>
+        </div>
+      </article>
+
+      <!-- STEP 2: Read -->
+      <article class="journey-step" id="step-2" data-step="2">
+        <h1>Step 2: Read — Pull in Your Context</h1>
+        <p>Before you write anything, you need context. This step teaches you to pull information from your existing tools into your AI workspace.</p>
+
+        <h2>Skills Used</h2>
+        <ul>
+          <li><strong>Calendar</strong> — See what's on your plate today</li>
+          <li><strong>Google Docs</strong> — Import existing documents for analysis</li>
+        </ul>
+
+        <hr>
+
+        <h2>Exercise 1: Check Your Calendar</h2>
+        <p>Say:</p>
+<pre><code>"What meetings do I have today?"</code></pre>
+        <p>The AI will fetch your Google Calendar and present a summary — grouped by time, with meeting links and conflict warnings.</p>
+        <p><strong>Try this next:</strong></p>
+<pre><code>"What's on my calendar this week?"
+"Do I have any conflicts tomorrow?"</code></pre>
+        <p><strong>What you learned:</strong> You can pull real-time context from Google Calendar without switching apps.</p>
+
+        <hr>
+
+        <h2>Exercise 2: Import a Google Doc</h2>
+        <p>Find a Google Doc you've been working on — a draft, notes from a meeting, or a spec. Share the link:</p>
+<pre><code>"Read this Google Doc: [paste your URL]"</code></pre>
+        <p>The AI converts it to markdown and can now:</p>
+        <ul>
+          <li>Summarize it</li>
+          <li>Analyze it</li>
+          <li>Use it as context for other skills</li>
+        </ul>
+        <p><strong>Try this next:</strong></p>
+<pre><code>"Summarize the key decisions in this doc"
+"What questions does this doc leave unanswered?"</code></pre>
+        <p><strong>What you learned:</strong> You can bring external documents into your AI workspace and work with them immediately.</p>
+
+        <hr>
+
+        <h2>Exercise 3: Combine Calendar + Docs</h2>
+        <p>This is where it gets powerful. Try:</p>
+<pre><code>"What meetings do I have today? For any doc links in the calendar events, pull them in and give me a prep summary for each meeting."</code></pre>
+        <p><strong>What you learned:</strong> Skills compose. The calendar skill feeds context into the docs skill, and you get meeting prep without any manual work.</p>
+
+        <hr>
+
+        <h2>What's Next</h2>
+        <p>Now that you can pull in context, let's use it to research something. Head to <a href="#step-3">Step 3: Research</a>.</p>
+
+        <div class="step-bottom-nav">
+          <a class="btn btn-secondary" href="#step-1">&larr; Previous: Setup</a>
+          <span class="step-indicator">Step 2 of 8</span>
+          <a class="btn btn-primary" href="#step-3">Next: Research &rarr;</a>
+        </div>
+      </article>
+
+      <!-- STEP 3: Research -->
+      <article class="journey-step" id="step-3" data-step="3">
+        <h1>Step 3: Research — Understand Before You Build</h1>
+        <p>Two skills that turn hours of research into minutes.</p>
+
+        <h2>Skills Used</h2>
+        <ul>
+          <li><strong>Deep Dive</strong> — Research any GitHub repo and produce an HTML reference doc</li>
+          <li><strong>Competitor Research</strong> — Structured competitive analysis</li>
+        </ul>
+
+        <hr>
+
+        <h2>Exercise 1: Deep Dive a Repository</h2>
+        <p>Pick a GitHub repo you work with (or any public repo you're curious about). Say:</p>
+<pre><code>"Deep dive into the authentication system in [org/repo]"</code></pre>
+        <p>The AI will:</p>
+        <ol>
+          <li>Ask you to confirm the topic, repo, and output directory</li>
+          <li>Search the codebase for relevant files, types, and architecture</li>
+          <li>Pull recent issues and PRs for context</li>
+          <li>Generate a polished HTML reference document</li>
+        </ol>
+        <p>Open the HTML file in your browser — it's a self-contained, shareable reference page.</p>
+        <p><strong>Try these:</strong></p>
+<pre><code>"Deep dive into the plugin system in grafana/grafana"
+"Teach me about the router in remix-run/remix"
+"Onboard me to the CLI framework in oclif/oclif"</code></pre>
+        <p><strong>What you learned:</strong> You can onboard to any codebase in minutes instead of hours. The HTML output is shareable with your team.</p>
+
+        <hr>
+
+        <h2>Exercise 2: Research a Competitor</h2>
+        <p>Pick a competitor in your space. Say:</p>
+<pre><code>"Research [competitor name]'s approach to [feature area]"</code></pre>
+        <p>The AI will:</p>
+        <ol>
+          <li>Search the web for documentation, blog posts, and release notes</li>
+          <li>Check their GitHub repos (if open source) for architecture and activity</li>
+          <li>Produce a structured analysis</li>
+        </ol>
+        <p><strong>Try these:</strong></p>
+<pre><code>"How does [competitor] handle user onboarding?"
+"Compare [competitor A] vs [competitor B] on pricing"
+"What's [competitor]'s product strategy based on their recent releases?"</code></pre>
+        <p><strong>What you learned:</strong> Competitive research that would take half a day of Googling gets done in one conversation.</p>
+
+        <hr>
+
+        <h2>What You Built</h2>
+        <p>By now you should have:</p>
+        <ul>
+          <li>An HTML deep-dive document in <code>output/html/</code> or <code>deep-dives/</code></li>
+          <li>A competitor research file in <code>output/competitor-research/</code></li>
+        </ul>
+        <p>Both are real artifacts you can share with your team.</p>
+
+        <hr>
+
+        <h2>What's Next</h2>
+        <p>You've gathered context and done research. Time to write. Head to <a href="#step-4">Step 4: Write</a>.</p>
+
+        <div class="step-bottom-nav">
+          <a class="btn btn-secondary" href="#step-2">&larr; Previous: Read</a>
+          <span class="step-indicator">Step 3 of 8</span>
+          <a class="btn btn-primary" href="#step-4">Next: Write &rarr;</a>
+        </div>
+      </article>
+
+      <!-- STEP 4: Write -->
+      <article class="journey-step" id="step-4" data-step="4">
+        <h1>Step 4: Write — Generate Real Documents</h1>
+        <p>This is the skill you'll use the most. The doc writer understands 7 PM document formats and picks the right one automatically.</p>
+
+        <h2>Skills Used</h2>
+        <ul>
+          <li><strong>Doc Writer</strong> — Write product documents in any standard PM format</li>
+        </ul>
+
+        <hr>
+
+        <h2>Exercise 1: Write a Concept One-Pager</h2>
+        <p>Think of a new idea — something that doesn't exist yet. Say:</p>
+<pre><code>"Write a one-pager for [your idea]"</code></pre>
+        <p>The AI will infer this is a <strong>Concept One-Pager</strong> (because it's a new idea) and write a narrative document with:</p>
+        <ul>
+          <li>Vision paragraph (problem &rarr; future state &rarr; benefits)</li>
+          <li>Approach paragraph (how &rarr; user experience &rarr; outcomes)</li>
+        </ul>
+        <p><strong>What to notice:</strong> It didn't ask you which format — it inferred it from your request.</p>
+
+        <hr>
+
+        <h2>Exercise 2: Write a Problem/Solution One-Pager</h2>
+        <p>Think of something broken or incomplete in your product. Say:</p>
+<pre><code>"Write a one-pager about improving [existing feature] to support [use case]"</code></pre>
+        <p>The AI will detect this is a <strong>Problem/Solution One-Pager</strong> (existing feature, enhancement) and produce:</p>
+        <ul>
+          <li>Background &amp; Context</li>
+          <li>Problem (user + business perspective)</li>
+          <li>Requirements (Given/When/Then)</li>
+          <li>Things we DON'T need (explicit non-goals)</li>
+        </ul>
+
+        <hr>
+
+        <h2>Exercise 3: Write a Decision Doc</h2>
+        <p>Got a fork in the road? Say:</p>
+<pre><code>"Write a decision doc for choosing between [option A] and [option B]"</code></pre>
+        <p>This produces a <strong>Decision One-Pager</strong> with a clear recommendation, options, tradeoffs, and kill criteria.</p>
+
+        <hr>
+
+        <h2>Exercise 4: Write a PRD</h2>
+        <p>Need a full spec? Say:</p>
+<pre><code>"Write a PRD for [feature]"</code></pre>
+        <p>This produces a comprehensive <strong>PRD / Structured Epic</strong> with problem statement, goals, requirements, work streams, success criteria, and architecture.</p>
+
+        <hr>
+
+        <h2>All 7 Formats</h2>
+        <table>
+          <thead>
+            <tr><th>Format</th><th>Use for</th><th>Trigger words</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Concept One-Pager</td><td>New ideas, vision</td><td>"new", "vision", "idea", "initiative"</td></tr>
+            <tr><td>Problem/Solution One-Pager</td><td>Feature enhancements</td><td>"fix", "gap", "enhancement", "improvement"</td></tr>
+            <tr><td>Decision One-Pager</td><td>Choosing between options</td><td>"decide", "choose", "tradeoff", "which"</td></tr>
+            <tr><td>PRFAQ</td><td>Big bets, launches</td><td>"PRFAQ", "press release", "launch"</td></tr>
+            <tr><td>PRD / Structured Epic</td><td>Full specs</td><td>"PRD", "epic", "requirements", "spec"</td></tr>
+            <tr><td>Vision Epic</td><td>Direction-setting</td><td>"vision epic", "direction", "initiative"</td></tr>
+            <tr><td>GitHub Issue</td><td>Publish to GitHub</td><td>"open an issue", "file an issue"</td></tr>
+          </tbody>
+        </table>
+
+        <hr>
+
+        <h2>Pro Tip: Use Context From Earlier Steps</h2>
+        <p>If you did a deep dive or competitor research earlier, reference it:</p>
+<pre><code>"Write a one-pager for [idea]. Use the competitor research from earlier as context."</code></pre>
+        <p>The AI will weave in competitive insights and technical context from your earlier work.</p>
+
+        <hr>
+
+        <h2>What's Next</h2>
+        <p>You have a draft. Time to get feedback before sharing it. Head to <a href="#step-5">Step 5: Review</a>.</p>
+
+        <div class="step-bottom-nav">
+          <a class="btn btn-secondary" href="#step-3">&larr; Previous: Research</a>
+          <span class="step-indicator">Step 4 of 8</span>
+          <a class="btn btn-primary" href="#step-5">Next: Review &rarr;</a>
+        </div>
+      </article>
+
+      <!-- STEP 5: Review -->
+      <article class="journey-step" id="step-5" data-step="5">
+        <h1>Step 5: Review — Get Feedback Before the Meeting</h1>
+        <p>Don't share a draft without reviewing it first. The doc reviewer gives you persona-based feedback that mimics the questions your CTO or GM would actually ask.</p>
+
+        <h2>Skills Used</h2>
+        <ul>
+          <li><strong>Doc Reviewer</strong> — Format-aware, persona-aware document review</li>
+        </ul>
+
+        <hr>
+
+        <h2>Exercise 1: CTO Review</h2>
+        <p>Take the doc you wrote in Step 4 (or any doc you're working on). Say:</p>
+<pre><code>"Review this doc as a CTO"</code></pre>
+        <p>The CTO review checks for:</p>
+        <ul>
+          <li><strong>Feature fit</strong> — Does this belong in an existing product area, or are you creating unnecessary new surface?</li>
+          <li><strong>Green field fallacy</strong> — Are you building something new when it could integrate into what exists?</li>
+          <li><strong>Simplicity</strong> — Simple concepts lead to simple products. Is this simple enough?</li>
+          <li><strong>Phasing risk</strong> — Will incomplete phases create dangling work?</li>
+        </ul>
+
+        <hr>
+
+        <h2>Exercise 2: GM Review</h2>
+        <p>Say:</p>
+<pre><code>"Review this as a GM"</code></pre>
+        <p>The GM review is based on Kent Beck's <strong>Explore/Expand/Extract</strong> framework and checks:</p>
+        <ul>
+          <li><strong>Phase clarity</strong> — Is this Explore, Expand, or Extract work? Is the team explicit about which phase?</li>
+          <li><strong>Phase-appropriate behavior</strong> — Are you optimizing for learning (Explore) or efficiency (Extract)?</li>
+          <li><strong>Problem gravity</strong> — Does the problem stand on its own, independent of the solution?</li>
+          <li><strong>Adoption mechanics</strong> — Why would users choose this?</li>
+        </ul>
+        <p>For <strong>Decision One-Pagers</strong>, the GM review shifts to decision execution mode:</p>
+        <ul>
+          <li>Is the decision stated unambiguously?</li>
+          <li>Is the posture correct (FYI / Recommendation / Make the Call)?</li>
+          <li>Are alternatives meaningfully different?</li>
+          <li>What triggers a revisit?</li>
+        </ul>
+
+        <hr>
+
+        <h2>Exercise 3: Review a Google Doc</h2>
+        <p>Have a doc in Google Docs? Share the link:</p>
+<pre><code>"Review the doc at [Google Docs URL] as a CTO"</code></pre>
+        <p>The AI will fetch the doc, detect its format, and apply persona-specific feedback.</p>
+        <p><strong>Bonus — resolve comments:</strong></p>
+<pre><code>"Review this doc and suggest how to resolve the comments: [URL]"</code></pre>
+
+        <hr>
+
+        <h2>What You Learned</h2>
+        <ul>
+          <li>CTO reviews catch architectural bloat and complexity</li>
+          <li>GM reviews ensure you're operating correctly for your phase</li>
+          <li>You can review docs from Google Docs links directly</li>
+          <li>Review feedback is actionable — specific edits, not vague suggestions</li>
+        </ul>
+
+        <hr>
+
+        <h2>What's Next</h2>
+        <p>Your doc is reviewed and solid. Time to present it. Head to <a href="#step-6">Step 6: Present</a>.</p>
+
+        <div class="step-bottom-nav">
+          <a class="btn btn-secondary" href="#step-4">&larr; Previous: Write</a>
+          <span class="step-indicator">Step 5 of 8</span>
+          <a class="btn btn-primary" href="#step-6">Next: Present &rarr;</a>
+        </div>
+      </article>
+
+      <!-- STEP 6: Present -->
+      <article class="journey-step" id="step-6" data-step="6">
+        <h1>Step 6: Present — Turn Work Into Shareable Artifacts</h1>
+        <p>Two skills for two types of output: slide decks and polished reference pages.</p>
+
+        <h2>Skills Used</h2>
+        <ul>
+          <li><strong>Presentation</strong> — Generate HTML slide decks</li>
+          <li><strong>HTML Reference Page</strong> — Generate styled, self-contained reference pages</li>
+        </ul>
+
+        <hr>
+
+        <h2>Exercise 1: Build a Presentation</h2>
+        <p>Take any topic you've been working on. Say:</p>
+<pre><code>"Create a presentation about [your topic]"</code></pre>
+        <p>The AI will:</p>
+        <ol>
+          <li>Ask about your goal (persuade, inform, update, propose) and audience</li>
+          <li>Propose a slide outline (typically 8-14 slides)</li>
+          <li>Wait for your approval</li>
+          <li>Generate a complete HTML slide deck</li>
+        </ol>
+        <p>The output is a single HTML file with:</p>
+        <ul>
+          <li>Arrow key navigation</li>
+          <li>Fullscreen mode</li>
+          <li>Progress bar</li>
+          <li>Print-to-PDF support</li>
+          <li>Mobile swipe support</li>
+        </ul>
+        <p>Open it in your browser and present directly — no PowerPoint needed.</p>
+        <p><strong>Try referencing earlier work:</strong></p>
+<pre><code>"Create a presentation about [topic] using the deep dive and competitor research from earlier"</code></pre>
+
+        <hr>
+
+        <h2>Exercise 2: Build a Reference Page</h2>
+        <p>For content that's better as a page than a deck — stats, architecture overviews, guides:</p>
+<pre><code>"Create a reference page for [topic]"</code></pre>
+        <p>This produces a styled, self-contained HTML page with:</p>
+        <ul>
+          <li>Dark gradient header</li>
+          <li>Card-based layout</li>
+          <li>Data tables</li>
+          <li>Source citations</li>
+          <li>Print-friendly styling</li>
+        </ul>
+        <p>Share it by sending the HTML file — anyone can open it in a browser.</p>
+
+        <hr>
+
+        <h2>What You Built</h2>
+        <ul>
+          <li>A presentation in <code>output/presentations/</code></li>
+          <li>A reference page in <code>output/html/</code></li>
+        </ul>
+        <p>Both are real, shareable artifacts — not drafts, not mockups.</p>
+
+        <hr>
+
+        <h2>What's Next</h2>
+        <p>You have the artifact. Time to ship it. Head to <a href="#step-7">Step 7: Ship</a>.</p>
+
+        <div class="step-bottom-nav">
+          <a class="btn btn-secondary" href="#step-5">&larr; Previous: Review</a>
+          <span class="step-indicator">Step 6 of 8</span>
+          <a class="btn btn-primary" href="#step-7">Next: Ship &rarr;</a>
+        </div>
+      </article>
+
+      <!-- STEP 7: Ship -->
+      <article class="journey-step" id="step-7" data-step="7">
+        <h1>Step 7: Ship — Share With Stakeholders</h1>
+        <p>Get your work out of the terminal and into the hands of your team.</p>
+
+        <h2>Skills Used</h2>
+        <ul>
+          <li><strong>Google Docs</strong> — Write and sync documents to Google Docs</li>
+          <li><strong>Doc Writer</strong> — Publish directly to GitHub Issues</li>
+        </ul>
+
+        <hr>
+
+        <h2>Exercise 1: Push a Doc to Google Docs</h2>
+        <p>Take any markdown document you've created. Say:</p>
+<pre><code>"Export [document] to Google Docs"</code></pre>
+        <p>The AI will:</p>
+        <ol>
+          <li>Convert your markdown to a formatted Google Doc (with native tables, headings, etc.)</li>
+          <li>Return the Google Docs URL</li>
+          <li>Remind you to set Pageless mode for best formatting</li>
+        </ol>
+        <p>The doc is private by default — share it manually via the Google Docs UI.</p>
+
+        <hr>
+
+        <h2>Exercise 2: Sync Changes Back</h2>
+        <p>After collaborators edit the Google Doc, pull their changes:</p>
+<pre><code>"Show me what changed in the Google Doc since I last synced: [URL]"</code></pre>
+        <p>This shows a diff. Then:</p>
+<pre><code>"Pull the latest from the Google Doc to my local file"</code></pre>
+        <p>Or push your local changes:</p>
+<pre><code>"Push my local changes to the Google Doc"</code></pre>
+
+        <hr>
+
+        <h2>Exercise 3: Publish to GitHub</h2>
+        <p>Write a doc and publish it directly as a GitHub issue:</p>
+<pre><code>"Write an epic for [feature] and open it as an issue on [org/repo]"</code></pre>
+        <p>The AI will:</p>
+        <ol>
+          <li>Write the document in the appropriate format</li>
+          <li>Ask which repo to target (if not specified)</li>
+          <li>Create the issue with matching title format and labels</li>
+          <li>Return the issue URL</li>
+        </ol>
+
+        <hr>
+
+        <h2>The Full Loop</h2>
+        <p>At this point you've completed the full PM workflow:</p>
+        <ol>
+          <li><strong>Read</strong> — Pulled in context from calendar and docs</li>
+          <li><strong>Research</strong> — Deep-dived a repo, researched competitors</li>
+          <li><strong>Write</strong> — Generated a doc in the right format</li>
+          <li><strong>Review</strong> — Got CTO/GM feedback</li>
+          <li><strong>Present</strong> — Built a deck or reference page</li>
+          <li><strong>Ship</strong> — Published to Google Docs or GitHub</li>
+        </ol>
+        <p>That's the core loop. Everything after this is customization.</p>
+
+        <hr>
+
+        <h2>What's Next</h2>
+        <p>Make it yours. Head to <a href="#step-8">Step 8: Customize</a>.</p>
+
+        <div class="step-bottom-nav">
+          <a class="btn btn-secondary" href="#step-6">&larr; Previous: Present</a>
+          <span class="step-indicator">Step 7 of 8</span>
+          <a class="btn btn-primary" href="#step-8">Next: Customize &rarr;</a>
+        </div>
+      </article>
+
+      <!-- STEP 8: Customize -->
+      <article class="journey-step" id="step-8" data-step="8">
+        <h1>Step 8: Customize — Make It Yours</h1>
+        <p>The core skills work out of the box. These two require your configuration to be truly useful.</p>
+
+        <h2>Skills Used</h2>
+        <ul>
+          <li><strong>Morning Standup</strong> — Daily metric check-in</li>
+          <li><strong>My Initiatives</strong> — GitHub issue tracking</li>
+        </ul>
+
+        <hr>
+
+        <h2>Exercise 1: Configure Your Morning Standup</h2>
+        <p>Say:</p>
+<pre><code>"Help me configure my morning standup metrics"</code></pre>
+        <p>The AI will ask:</p>
+        <ol>
+          <li>What's your role? (PM, Engineering Lead, Executive)</li>
+          <li>What product areas do you focus on?</li>
+          <li>What questions do you want answered every morning?</li>
+        </ol>
+        <p>Then it creates a <code>metrics.yaml</code> config file with your personalized metrics.</p>
+
+        <h3>Example metrics you might configure:</h3>
+        <table>
+          <thead>
+            <tr><th>Role</th><th>Example metrics</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>PM</strong></td><td>Feature adoption milestones, conversion rates, usage trends</td></tr>
+            <tr><td><strong>Engineering Lead</strong></td><td>Health scores, error rates, deployment success</td></tr>
+            <tr><td><strong>Executive</strong></td><td>Growth KPIs, customer health, platform snapshot</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Run it daily:</h3>
+<pre><code>"Run my morning standup"</code></pre>
+        <p>You get a red/yellow/green report of what needs your attention.</p>
+
+        <h3>Bring your own data source</h3>
+        <p>The standup works with any SQL-compatible data source. Configure your query runner in the metrics.yaml:</p>
+<pre><code>alerts:
+  - name: "Feature Adoption"
+    priority: high
+    query: |
+      SELECT COUNT(DISTINCT user_id) AS users
+      FROM your_table
+      WHERE date = CURRENT_DATE - 1
+        AND feature_used = 'your_feature'
+    milestone: "&gt; 5000"
+    target: 5000</code></pre>
+
+        <hr>
+
+        <h2>Exercise 2: Configure Your Initiative Tracker</h2>
+        <p>Say:</p>
+<pre><code>"Help me set up my initiative tracker"</code></pre>
+        <p>The AI will ask:</p>
+        <ol>
+          <li>Your GitHub username</li>
+          <li>Which repos to track</li>
+          <li>What labels to filter by</li>
+          <li>How to categorize your issues</li>
+        </ol>
+        <p>Then it creates a <code>config.yaml</code> for the my-initiatives skill.</p>
+
+        <h3>Sync your tasks:</h3>
+<pre><code>"Sync my tasks from GitHub"</code></pre>
+        <p>This pulls your assigned issues and organizes them into your <code>tasks/ACTIVE.md</code> file.</p>
+
+        <h3>Browse your team's work:</h3>
+<pre><code>"Show my team's epics"
+"What needs PM input?"
+"What's in the current release?"</code></pre>
+
+        <hr>
+
+        <h2>Exercise 3: Add Your Own Skill</h2>
+        <p>Want to add a workflow specific to your team? Create a new skill:</p>
+<pre><code>mkdir skills/my-custom-skill</code></pre>
+        <p>Create <code>skills/my-custom-skill/SKILL.md</code> with this structure:</p>
+<pre><code>---
+name: my-custom-skill
+description: What this skill does. When to trigger it.
+---
+
+# My Custom Skill
+
+## When to Use
+- "trigger phrase one"
+- "trigger phrase two"
+
+## Process
+1. Step one
+2. Step two
+3. Step three</code></pre>
+        <p>The AI will pick it up automatically on next conversation.</p>
+
+        <hr>
+
+        <h2>You're Done</h2>
+        <p>You now have:</p>
+        <ul>
+          <li>10 working skills</li>
+          <li>A daily standup configured for your role</li>
+          <li>GitHub issues synced to your task list</li>
+          <li>The ability to add your own skills</li>
+        </ul>
+        <p>The workflow is:</p>
+        <ol>
+          <li><strong>Morning:</strong> Run standup, check calendar, sync GitHub tasks</li>
+          <li><strong>During the day:</strong> Research, write, review, present — as needed</li>
+          <li><strong>Ship:</strong> Push to Google Docs or GitHub when ready</li>
+        </ol>
+        <p>Welcome to the Core AI PM Workflow.</p>
+
+        <div class="journey-complete">
+          <h2>You're all set.</h2>
+          <p>Here's your daily workflow:</p>
+          <ul>
+            <li><strong>Morning:</strong> Run standup, check calendar, sync GitHub tasks</li>
+            <li><strong>During the day:</strong> Research, write, review, present — as needed</li>
+            <li><strong>Ship:</strong> Push to Google Docs or GitHub when ready</li>
+          </ul>
+          <div class="journey-complete-ctas">
+            <a class="btn btn-primary" href="https://github.com/davethegut/core-ai-pm-workflow" target="_blank" rel="noopener noreferrer">Star the Repo ★</a>
+            <a class="btn btn-secondary" href="index.html">Back to Home</a>
+          </div>
+        </div>
+        <div class="step-bottom-nav">
+          <a class="btn btn-secondary" href="#step-7">&larr; Previous: Ship</a>
+          <span class="step-indicator">Journey Complete</span>
+          <span></span>
+        </div>
+      </article>
+
+    </main>
+  </div>
+
+  <script>
+    const STEPS = [
+      { num: 1, label: 'Setup' },
+      { num: 2, label: 'Read' },
+      { num: 3, label: 'Research' },
+      { num: 4, label: 'Write' },
+      { num: 5, label: 'Review' },
+      { num: 6, label: 'Present' },
+      { num: 7, label: 'Ship' },
+      { num: 8, label: 'Customize' }
+    ];
+
+    let currentStep = 1;
+
+    function showStep(n) {
+      n = Math.max(1, Math.min(8, parseInt(n) || 1));
+      currentStep = n;
+
+      // Hide all steps, show target
+      document.querySelectorAll('.journey-step').forEach(function(el) {
+        el.classList.remove('active');
+      });
+      var target = document.getElementById('step-' + n);
+      if (target) {
+        target.classList.add('active');
+      }
+
+      // Update sidebar
+      document.querySelectorAll('.step-nav-item').forEach(function(item) {
+        var stepNum = parseInt(item.getAttribute('data-step'));
+        item.classList.remove('active', 'completed');
+        if (stepNum === n) {
+          item.classList.add('active');
+        } else if (stepNum < n) {
+          item.classList.add('completed');
+        }
+      });
+
+      // Update progress indicator
+      var progressEl = document.getElementById('sidebar-progress');
+      if (progressEl) progressEl.textContent = 'Step ' + n + ' of 8';
+
+      // Update hash without triggering hashchange
+      history.replaceState(null, '', '#step-' + n);
+
+      // Update document title
+      document.title = 'Step ' + n + ': ' + STEPS[n - 1].label + ' — The Core AI PM Workflow';
+
+      // Toggle journey intro visibility (only show on step 1)
+      var introEl = document.getElementById('journey-intro');
+      if (introEl) introEl.style.display = (n === 1) ? 'block' : 'none';
+
+      // Scroll content to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Parse hash on load
+    function getStepFromHash() {
+      var hash = window.location.hash;
+      var match = hash.match(/^#step-(\d+)$/);
+      if (match) {
+        var num = parseInt(match[1]);
+        if (num >= 1 && num <= 8) return num;
+      }
+      return 1;
+    }
+
+    // Initialize
+    showStep(getStepFromHash());
+
+    // Hash change listener
+    window.addEventListener('hashchange', function() {
+      showStep(getStepFromHash());
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      // Don't interfere with input fields
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      if (e.key === 'ArrowRight' && currentStep < 8) {
+        e.preventDefault();
+        showStep(currentStep + 1);
+      } else if (e.key === 'ArrowLeft' && currentStep > 1) {
+        e.preventDefault();
+        showStep(currentStep - 1);
+      }
+    });
+
+    // Intercept internal step links
+    document.addEventListener('click', function(e) {
+      var link = e.target.closest('a[href^="#step-"]');
+      if (link) {
+        e.preventDefault();
+        var match = link.getAttribute('href').match(/^#step-(\d+)$/);
+        if (match) showStep(parseInt(match[1]));
+      }
+    });
+  </script>
+</body>
+</html>

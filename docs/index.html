@@ -303,6 +303,18 @@
       text-align: center;
       padding: 24px 16px;
       position: relative;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .timeline-step:hover {
+      transform: translateY(-4px);
+    }
+    .timeline-step:hover .step-number {
+      background: #D97757;
+      color: #141414;
     }
 
     .timeline-step::after {
@@ -315,9 +327,27 @@
       background: rgba(255,255,255,0.08);
     }
 
-    .timeline-step:last-child::after,
+    .timeline-step:last-child::after {
+      display: none;
+    }
+
     .timeline-step:nth-child(4)::after {
       display: none;
+    }
+
+    .timeline-step:nth-child(4) {
+      position: relative;
+    }
+
+    .timeline-step:nth-child(4)::before {
+      content: '↓';
+      position: absolute;
+      bottom: -32px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.4rem;
+      color: var(--accent);
+      z-index: 2;
     }
 
     .step-number {
@@ -709,10 +739,10 @@
       <h1>Stop writing docs from scratch.<br><span class="accent">Stop spending 2 hours on a deck that should take 20 minutes.</span></h1>
       <p class="hero-tagline">10 AI-powered skills built by a PM, for PMs. Clone this repo and your AI assistant becomes a PM productivity machine.</p>
       <div class="hero-ctas">
-        <a href="https://github.com/davethegut/core-ai-pm-workflow/blob/main/journey/01-setup.md" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Start the Journey &#8594;</a>
+        <a href="journey.html#step-1" class="btn btn-primary">Start the Journey &#8594;</a>
         <a href="https://github.com/davethegut/core-ai-pm-workflow" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">View on GitHub</a>
       </div>
-      <p class="hero-subtitle">10 AI-powered skills built by a PM, for PMs. Clone this repo and your AI assistant becomes a PM productivity machine.</p>
+      <p class="hero-subtitle">Write docs, build decks, research competitors, review strategy, and track your work — all from your terminal.</p>
     </div>
   </section>
 
@@ -798,46 +828,46 @@
         <p class="section-subtitle">8 guided steps from setup to shipping. Each builds on the last. Go at your own pace.</p>
       </div>
       <div class="timeline fade-in">
-        <div class="timeline-step">
+        <a href="journey.html#step-1" class="timeline-step">
           <div class="step-number">1</div>
           <div class="step-title">Setup</div>
           <div class="step-desc">Install tools, configure credentials, verify everything works</div>
-        </div>
-        <div class="timeline-step">
+        </a>
+        <a href="journey.html#step-2" class="timeline-step">
           <div class="step-number">2</div>
           <div class="step-title">Read</div>
-          <div class="step-desc">Pull context from Google Docs, Confluence, GitHub</div>
-        </div>
-        <div class="timeline-step">
+          <div class="step-desc">Pull context from Calendar, Google Docs, and existing documents</div>
+        </a>
+        <a href="journey.html#step-3" class="timeline-step">
           <div class="step-number">3</div>
           <div class="step-title">Research</div>
           <div class="step-desc">Deep dive into repos, run competitive analysis</div>
-        </div>
-        <div class="timeline-step">
+        </a>
+        <a href="journey.html#step-4" class="timeline-step">
           <div class="step-number">4</div>
           <div class="step-title">Write</div>
           <div class="step-desc">Generate PM docs in the right format automatically</div>
-        </div>
-        <div class="timeline-step">
+        </a>
+        <a href="journey.html#step-5" class="timeline-step">
           <div class="step-number">5</div>
           <div class="step-title">Review</div>
           <div class="step-desc">Get CTO and GM-level feedback on your drafts</div>
-        </div>
-        <div class="timeline-step">
+        </a>
+        <a href="journey.html#step-6" class="timeline-step">
           <div class="step-number">6</div>
           <div class="step-title">Present</div>
           <div class="step-desc">Turn docs into decks and reference pages</div>
-        </div>
-        <div class="timeline-step">
+        </a>
+        <a href="journey.html#step-7" class="timeline-step">
           <div class="step-number">7</div>
           <div class="step-title">Ship</div>
           <div class="step-desc">Publish to Google Docs, GitHub, or stakeholder channels</div>
-        </div>
-        <div class="timeline-step">
+        </a>
+        <a href="journey.html#step-8" class="timeline-step">
           <div class="step-number">8</div>
           <div class="step-title">Customize</div>
           <div class="step-desc">Adapt skills to your stack, metrics, and team</div>
-        </div>
+        </a>
       </div>
     </div>
   </section>
@@ -920,7 +950,7 @@
           <h3>This is NOT for you if...</h3>
           <ul>
             <li>You want a no-code, click-through tool</li>
-            <li>You don't have Claude Code or Cursor</li>
+            <li>You're not ready to install Claude Code or Cursor (they're free — <a href='https://docs.anthropic.com/en/docs/claude-code/overview' target='_blank' rel='noopener noreferrer'>here's how</a>)</li>
             <li>You need enterprise-grade security review before using any tool</li>
             <li>You're looking for a course to learn AI basics</li>
           </ul>
@@ -997,10 +1027,10 @@
   <!-- ========== FOOTER ========== -->
   <footer>
     <div class="container">
-      <p class="footer-tagline">"Built by a PM who got tired of doing the same things manually every week."</p>
+      <p class="footer-tagline">"Built by David Elgut — a PM who got tired of doing the same things manually every week."</p>
       <div class="footer-links">
         <a href="https://github.com/davethegut/core-ai-pm-workflow" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
-        <a href="https://github.com/davethegut/core-ai-pm-workflow/blob/main/journey/01-setup.md" target="_blank" rel="noopener noreferrer">Start the Journey</a>
+        <a href="journey.html#step-1">Start the Journey</a>
       </div>
       <p class="footer-meta">Works with Claude Code &amp; Cursor &middot; MIT License</p>
     </div>
