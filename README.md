@@ -6,7 +6,7 @@
 
 <h3 align="center">Stop writing docs from scratch. Stop forgetting what's on your plate.<br/>Stop spending 2 hours on a deck that should take 20 minutes.</h3>
 
-This is a toolkit of **10 AI-powered skills** built by a PM, for PMs. Clone this repo, and your AI assistant (Claude Code or Cursor) becomes a PM productivity machine — writing docs, reviewing strategy, researching competitors, building presentations, and tracking your work across GitHub.
+This is a toolkit of **11 AI-powered skills** built by a PM, for PMs. Clone this repo, and your AI assistant (Claude Code or Cursor) becomes a PM productivity machine — writing docs, reviewing strategy, researching competitors, building presentations, and tracking your work across GitHub.
 
 **These aren't prompts. They're workflows.** Each skill is a multi-step process that knows how to gather context, ask the right questions, and produce real artifacts you can ship.
 
@@ -26,6 +26,7 @@ This is a toolkit of **10 AI-powered skills** built by a PM, for PMs. Clone this
 | 8 | **Presentation** | Build a slide deck from scratch — HTML, no PowerPoint needed | 1-3 hours |
 | 9 | **Morning Standup** | Daily metric check-in with configurable alerts | 15 min/day |
 | 10 | **My Initiatives** | Track your GitHub issues and sync them to your task list | 10 min/day |
+| 11 | **Security Review** | Audit skills, plans, and setups for security risks and failure modes | 1-2 hours |
 
 ---
 
@@ -104,7 +105,7 @@ The skills system is compatible with both tools. The setup guide covers configur
 core-ai-pm-workflow/
 ├── README.md              ← You are here
 ├── CLAUDE.md              ← AI assistant configuration
-├── skills/                ← The 10 skills
+├── skills/                ← The 11 skills
 │   ├── calendar/          ← Google Calendar reader
 │   ├── gdocs-share/       ← Google Docs read/write/sync
 │   ├── deep-dive/         ← GitHub repo researcher
@@ -114,7 +115,8 @@ core-ai-pm-workflow/
 │   ├── html-reference-page/ ← HTML page generator
 │   ├── presentation/      ← Slide deck builder
 │   ├── morning-standup/   ← Daily metric standup
-│   └── my-initiatives/    ← GitHub issue tracker
+│   ├── my-initiatives/    ← GitHub issue tracker
+│   └── security-review/   ← Security auditor
 ├── journey/               ← Guided walkthrough (8 steps)
 ├── templates/             ← Document format templates
 ├── assets/                ← Branding assets (banner, etc.)

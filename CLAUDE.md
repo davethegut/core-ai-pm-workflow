@@ -8,7 +8,7 @@ This file configures Claude Code (and Cursor) when working in this repository.
 
 ## Skills
 
-This repo ships 10 skills. Each skill is a self-contained prompt + process in `skills/<name>/SKILL.md`.
+This repo ships 11 skills. Each skill is a self-contained prompt + process in `skills/<name>/SKILL.md`.
 
 | Skill | What it does | Trigger |
 |-------|-------------|---------|
@@ -22,11 +22,12 @@ This repo ships 10 skills. Each skill is a self-contained prompt + process in `s
 | **presentation** | Generate HTML slide decks | "create a presentation about..." |
 | **morning-standup** | Daily standup with configurable metrics | "run my morning standup" |
 | **my-initiatives** | Track your GitHub issues and sync to tasks | "show my team's epics" |
+| **security-review** | Audit skills, plans, and setups for security risks | "security review of [skill]" |
 
 ## Directory Structure
 
 ```
-skills/           → All 10 skills (SKILL.md files + supporting templates)
+skills/           → All 11 skills (SKILL.md files + supporting templates)
 journey/          → Guided walkthrough (start here if you're new)
 templates/        → Document templates (PRD, PRFAQ, one-pager, epic)
 tasks/            → Your task tracking (ACTIVE.md, GOALS.md)

@@ -4,7 +4,7 @@
     "name": "David Elgut"
   },
   "metadata": {
-    "description": "10 AI-powered skills for Product Managers — write docs, build decks, research competitors, review strategy, and track your work",
+    "description": "11 AI-powered skills for Product Managers — write docs, build decks, research competitors, review strategy, audit security, and track your work",
     "version": "1.0.0"
   },
   "plugins": [
@@ -97,6 +97,15 @@
       "description": "Track GitHub issues across repos and sync to your task list with configurable labels and categories",
       "tags": ["productivity", "github", "project-management", "task-tracking"],
       "category": "productivity"
+    },
+    {
+      "name": "security-review",
+      "version": "1.0.0",
+      "author": { "name": "David Elgut", "url": "https://github.com/davethegut" },
+      "source": "./skills/security-review",
+      "description": "Structured security review of skills, deployment plans, and live setups — credential hygiene, injection vectors, blast radius, failure modes",
+      "tags": ["security", "review", "audit", "cybersecurity"],
+      "category": "security"
     }
   ]
 }
