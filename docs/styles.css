@@ -241,7 +241,7 @@ nav .container {
   margin-bottom: 20px;
 }
 
-.skill-content li {
+.skill-content li:not(.process-step) {
   font-size: 15px;
   color: #8892a4;
   padding: 8px 0;
@@ -250,7 +250,7 @@ nav .container {
   line-height: 1.6;
 }
 
-.skill-content li::before {
+.skill-content li:not(.process-step)::before {
   content: '▸';
   position: absolute;
   left: 0;
