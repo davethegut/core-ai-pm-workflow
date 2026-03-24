@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Docs — The Core AI PM Workflow</title>
+  <meta name="description" content="Read, write, and sync Google Docs from your terminal. Bidirectional sync keeps local and remote in lockstep.">
+  <meta property="og:title" content="Google Docs — The Core AI PM Workflow">
+  <meta property="og:description" content="Read, write, and sync Google Docs from your terminal. Bidirectional sync keeps local and remote in lockstep.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/davethegut/core-ai-pm-workflow/main/assets/banner.png">
+  <meta property="og:url" content="https://aipmworkflow.io/skills/gdocs-share.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <a href="../" class="nav-logo">Core AI <span>PM Workflow</span></a>
+      <button class="nav-mobile-toggle" aria-label="Toggle menu">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="../#skills">Skills</a></li>
+        <li><a href="../journey.html">Journey</a></li>
+        <li><a href="../#highlights">Highlights</a></li>
+        <li><a href="https://github.com/davethegut/core-ai-pm-workflow" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="skill-hero">
+    <div class="container">
+      <div class="category-badge">📄 Integration</div>
+      <h1>Google Docs</h1>
+      <p class="skill-tagline">Read, write, and sync Google Docs from your terminal. Bidirectional sync keeps local and remote in lockstep.</p>
+      <div class="time-saved">Saves ~10 min/doc</div>
+    </div>
+  </div>
+
+  <div class="skill-content">
+    <div class="container">
+      <section>
+        <h2>What It Does</h2>
+        <p>Three complementary modes cover the full doc lifecycle. <strong>Read</strong> pulls a doc’s content as markdown for editing, quoting, or analysis in your repo. <strong>Write</strong> pushes local markdown or text up to a Google Doc when you want the canonical copy to live in Drive. <strong>Sync</strong> keeps a local file and the remote doc aligned bidirectionally so you never wonder which version is current. Comment-aware reads support review workflows where threaded feedback matters.</p>
+      </section>
+
+      <section>
+        <h2>Example Prompts</h2>
+        <div class="prompt-grid">
+          <div class="prompt-card">Read this Google Doc [URL]</div>
+          <div class="prompt-card">Push this file to a Google Doc</div>
+          <div class="prompt-card">Sync this file with the doc</div>
+          <div class="prompt-card">Fetch the doc with comments</div>
+        </div>
+      </section>
+
+      <section>
+        <h2>How It Works</h2>
+        <ol class="process-steps">
+          <li class="process-step">Authenticates via Google OAuth (one-time in the browser) with scopes appropriate for Docs access.</li>
+          <li class="process-step">Reads document structure and content, converting to markdown for use in your editor or AI context.</li>
+          <li class="process-step">Supports push-back updates and bidirectional sync so changes flow both ways when you choose sync mode.</li>
+          <li class="process-step">Pairs cleanly with doc-reviewer workflows: fetch with comments, iterate locally, then sync or push updates.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Prerequisites</h2>
+        <div class="info-card">
+          <ul>
+            <li><strong>Python 3.9+</strong> for the Docs CLI and helper scripts.</li>
+            <li><strong>Google Docs API OAuth client</strong> in Google Cloud Console.</li>
+            <li><strong>One-time browser auth</strong> to connect your Google account securely.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="skill-cta">
+    <div class="container">
+      <h2>Try It Now</h2>
+      <p>Clone the repo and start using this skill in under 60 seconds.</p>
+      <div class="cta-buttons">
+        <a href="https://github.com/davethegut/core-ai-pm-workflow" target="_blank" rel="noopener noreferrer" class="btn btn-primary">View on GitHub</a>
+        <a href="../#skills" class="btn btn-secondary">Browse All Skills</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p class="footer-tagline">"Built by David Elgut — a PM who got tired of doing the same things manually every week."</p>
+      <div class="footer-links">
+        <a href="https://github.com/davethegut/core-ai-pm-workflow" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+        <a href="../journey.html#step-1">Start the Journey</a>
+      </div>
+      <p class="footer-meta">Works with Claude Code &amp; Cursor &middot; MIT License</p>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      var toggle = document.querySelector('.nav-mobile-toggle');
+      var links = document.querySelector('.nav-links');
+      if (toggle && links) {
+        toggle.addEventListener('click', function() {
+          var isOpen = links.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', isOpen);
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>
